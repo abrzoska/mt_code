@@ -1,0 +1,251 @@
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233

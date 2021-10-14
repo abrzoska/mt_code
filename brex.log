@@ -1,0 +1,1648 @@
+ERROR:root:Could not find file. Path does not exist.
+ERROR:root:Could not find file. Path does not exist.
+ERROR:root:Could not find file. Path does not exist.
+ERROR:root:Could not find file. Path does not exist.
+ERROR:root:Could not find file. Path does not exist.
+ERROR:root:Could not find file. Path does not exist.
+ERROR:root:Could not find file. Path does not exist.
+ERROR:root:Could not find file. Path does not exist.
+ERROR:root:Could not find file. Path does not exist.
+INFO:root:id: ENST00000298139
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:id: 'ENST00000298139'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:id: 'ENST00000298139'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:id: 'ENST00000298139'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:id: 'ENST00000298139'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENST00000298139?expand=1 HTTP/1.1" 200 7212
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'WRN-201' of 'homo_sapiens'
+INFO:root:new min exon start: 31033810
+INFO:root:id: 'ENST00000298139'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENST00000298139?expand=1 HTTP/1.1" 200 7212
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'WRN-201' of 'homo_sapiens'
+INFO:root:new min exon start: 31033810
+INFO:root:id: 'ENST00000298139'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENST00000298139?expand=1 HTTP/1.1" 200 7212
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'WRN-201' of 'homo_sapiens'
+INFO:root:new min exon start: 31033810
+INFO:root:id: 'ENST00000298139'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENST00000298139?expand=1 HTTP/1.1" 200 7212
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'WRN-201' of 'homo_sapiens'
+INFO:root:new min exon start: 31033810
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:'seq_region_name' is NAN, using KL205489.1 as scaffold.
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:'seq_region_name' is NAN, using KL205489.1 as scaffold.
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:'seq_region_name' is NAN, using KL205489.1 as scaffold.
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:'seq_region_name' is NAN, using KL205489.1 as scaffold.
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:'seq_region_name' is NAN, using KL205489.1 as scaffold.
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:'seq_region_name' is NAN, using KL205489.1 as scaffold.
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:'seq_region_name' is NAN, using KL205489.1 as scaffold.
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:'seq_region_name' is NAN, using KL205489.1 as scaffold.
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:'seq_region_name' is NAN, using KL205489.1 as scaffold.
+INFO:root:id: 'ENSNGAT00000015586'
+INFO:root:bfile: data/spalaxheart.bam
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BAM: 1>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSNGAT00000015586?expand=1 HTTP/1.1" 200 3331
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Pou2f3-201' of 'nannospalax_galili'
+INFO:root:new min exon start: 1699585
+INFO:root:'seq_region_name' is NAN, using KL205489.1 as scaffold.
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/MACS/mm10heart.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:MafExtractor instantiated. 
+INFO:root:MafExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 3339000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 33300000
+INFO:root:end: 3340000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 33300000
+INFO:root:end: 3340000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 33300000
+INFO:root:end: 3340000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33300000
+INFO:root:end: 3340000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 33300000
+INFO:root:end: 3340000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 32500000
+INFO:root:end: 3340000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 0
+INFO:root:end: 90000000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 30000000
+INFO:root:end: 40000000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 33000000
+INFO:root:end: 38000000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/wrn/TFmotifView_genomic_track_2021-06-11_15-59.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/wrn/TFmotifView_genomic_track_2021-06-11_15-59.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: wrn_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: wrn_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/wrn/TFmotifView_genomic_track_2021-06-11_15-59.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: wrn_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: wrn_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: wrn_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: wrn_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: wrn_small.bed
+INFO:root:start: 33380000
+INFO:root:end: 33400000
+INFO:root:scaffold: 'chr8'
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/chr/chr4.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/chr/chr4.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/chr/chr4.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/chr/chr4.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/chr/chr4.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/chr/chr4.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/chr/chr4.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/chr/chr4.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:filetype: <Type.BED: 2>
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 5000
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45967233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45967233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45967233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45967233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45957233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45957233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45957233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45957233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45957233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45957233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45957233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45957233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45957233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 15000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45957233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 50000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45922233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 150000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45972233
+INFO:root:end: 45822233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 150000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45822233
+INFO:root:end: 45972233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45967233
+INFO:root:end: 45972233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45967233
+INFO:root:end: 45972233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000215311'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000215311?expand=1 HTTP/1.1" 200 9645
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Atr-213' of 'mus_musculus'
+INFO:root:new min exon start: 95739759
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 95734759
+INFO:root:end: 95739759
+INFO:root:scaffold: 'chr9'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000021530'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000021530?expand=1 HTTP/1.1" 200 3486
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Hif1a-201' of 'mus_musculus'
+INFO:root:new min exon start: 73954678
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 73949678
+INFO:root:end: 73954678
+INFO:root:scaffold: 'chr12'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000215311'
+INFO:root:range: 10000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000215311?expand=1 HTTP/1.1" 200 9645
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Atr-213' of 'mus_musculus'
+INFO:root:new min exon start: 95739759
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 95729759
+INFO:root:end: 95739759
+INFO:root:scaffold: 'chr9'
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 95750000
+INFO:root:end: 95850000
+INFO:root:scaffold: 'chr9'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000021530'
+INFO:root:range: 10000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000021530?expand=1 HTTP/1.1" 200 3486
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Hif1a-201' of 'mus_musculus'
+INFO:root:new min exon start: 73954678
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000021530'
+INFO:root:range: 10000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000021530?expand=1 HTTP/1.1" 200 3486
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Hif1a-201' of 'mus_musculus'
+INFO:root:new min exon start: 73954678
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 73890000
+INFO:root:end: 73902500
+INFO:root:scaffold: 'chr12'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000024954'
+INFO:root:range: 10000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000024954?expand=1 HTTP/1.1" 200 3682
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Epas1-201' of 'mus_musculus'
+INFO:root:new min exon start: 87061128
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 86700000
+INFO:root:end: 86750000
+INFO:root:scaffold: 'chr17'
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 86700000
+INFO:root:end: 86750000
+INFO:root:scaffold: 'chr17'
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 86700000
+INFO:root:end: 86750000
+INFO:root:scaffold: 'chr17'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000215311'
+INFO:root:range: 35000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000215311?expand=1 HTTP/1.1" 200 9645
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Atr-213' of 'mus_musculus'
+INFO:root:new min exon start: 95739759
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 95704759
+INFO:root:end: 95739759
+INFO:root:scaffold: 'chr9'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000215311'
+INFO:root:range: 50000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000215311?expand=1 HTTP/1.1" 200 9645
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Atr-213' of 'mus_musculus'
+INFO:root:new min exon start: 95739759
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 95689759
+INFO:root:end: 95739759
+INFO:root:scaffold: 'chr9'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000021530'
+INFO:root:range: 50000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000021530?expand=1 HTTP/1.1" 200 3486
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Hif1a-201' of 'mus_musculus'
+INFO:root:new min exon start: 73954678
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 73904678
+INFO:root:end: 73954678
+INFO:root:scaffold: 'chr12'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000024954'
+INFO:root:range: 50000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000024954?expand=1 HTTP/1.1" 200 3682
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Epas1-201' of 'mus_musculus'
+INFO:root:new min exon start: 87061128
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 87011128
+INFO:root:end: 87061128
+INFO:root:scaffold: 'chr17'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000024954'
+INFO:root:range: 50000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000024954?expand=1 HTTP/1.1" 200 3682
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Epas1-201' of 'mus_musculus'
+INFO:root:new min exon start: 87061128
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode_small.bed
+INFO:root:start: 87011128
+INFO:root:end: 87061128
+INFO:root:scaffold: 'chr17'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000024954'
+INFO:root:range: 50000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000024954?expand=1 HTTP/1.1" 200 3682
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Epas1-201' of 'mus_musculus'
+INFO:root:new min exon start: 87061128
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 87011128
+INFO:root:end: 87061128
+INFO:root:scaffold: 'chr17'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000102929'
+INFO:root:range: 50000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000102929?expand=1 HTTP/1.1" 200 3857
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Tdrd7-201' of 'mus_musculus'
+INFO:root:new min exon start: 45972233
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/mouseCNEs.bed
+INFO:root:start: 45922233
+INFO:root:end: 45972233
+INFO:root:scaffold: 'chr4'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: <built-in function id>
+INFO:root:range: 50000
+INFO:root:Access gene info on ensembl.
+INFO:root:MafExtractor instantiated. 
+INFO:root:MafExtractor instantiated. 
+INFO:root:MafExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/transcriptionfactors/atr/TFmotifView_genomic_track_2021-07-08_14-34.bed
+INFO:root:start: 95739759
+INFO:root:end: 95689759
+INFO:root:scaffold: 'chr9'
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/transcriptionfactors/atr/TFmotifView_genomic_track_2021-07-08_14-34.bed
+INFO:root:start: 95689759
+INFO:root:end: 95739759
+INFO:root:scaffold: 'chr9'
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/encode.bed
+INFO:root:start: 95689759
+INFO:root:end: 95739759
+INFO:root:scaffold: 'chr9'
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode12.bed
+INFO:root:start: 95689759
+INFO:root:end: 95739759
+INFO:root:scaffold: 'chr9'
+INFO:root:MafExtractor instantiated. 
+INFO:root:MafExtractor instantiated. 
+INFO:root:MafExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/transcriptionfactors/hif1a/TFmotifView_genomic_track_2021-07-09_10-20.bed
+INFO:root:start: 73890000
+INFO:root:end: 73902500
+INFO:root:scaffold: 'chr12'
+INFO:root:MafExtractor instantiated. 
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000021530'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000021530?expand=1 HTTP/1.1" 200 3486
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Hif1a-201' of 'mus_musculus'
+INFO:root:new min exon start: 73954678
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/transcriptionfactors/hif1a/TFmotifView_genomic_track_2021-07-09_10-20.bed
+INFO:root:start: 73949678
+INFO:root:end: 73954678
+INFO:root:scaffold: 'chr12'
+INFO:root:RegionFinder instantiated. 
+INFO:root:id: 'ENSMUST00000021530'
+INFO:root:range: 5000
+INFO:root:Access gene info on ensembl.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): rest.ensembl.org:443
+DEBUG:urllib3.connectionpool:https://rest.ensembl.org:443 "GET /lookup/id/ENSMUST00000021530?expand=1 HTTP/1.1" 200 3486
+INFO:root:Downloaded data from ensembl.
+INFO:root:Find First Exon for Gene 'Hif1a-201' of 'mus_musculus'
+INFO:root:new min exon start: 73954678
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/transcriptionfactors/hif1a/TFmotifView_genomic_track_2021-07-09_10-20.bed
+INFO:root:start: 73949678
+INFO:root:end: 73954678
+INFO:root:scaffold: 'chr12'
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/transcriptionfactors/hif1a/TFmotifView_genomic_track_2021-07-09_10-20.bed
+INFO:root:start: 95850000
+INFO:root:end: 95860000
+INFO:root:scaffold: 'chr9'
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: encode9.bed
+INFO:root:start: 95850000
+INFO:root:end: 95860000
+INFO:root:scaffold: 'chr9'
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: data/encode9.bed
+INFO:root:start: 95850000
+INFO:root:end: 95860000
+INFO:root:scaffold: 'chr9'
+INFO:root:RegionExtractor instantiated. 
+INFO:root:bfile: /moreAddSpace/abrzoska/mm10/transcriptionfactors/atr/TFmotifView_genomic_track_2021-07-09_15-50.bed
+INFO:root:start: 95850000
+INFO:root:end: 95860000
+INFO:root:scaffold: 'chr9'
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:MafBuilder instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
+INFO:root:RegionExtractor instantiated. 
