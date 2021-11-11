@@ -1,0 +1,2 @@
+../mt/output/mafsInRegion/wrn_nanGal1_indels.bed-tmp
+../mt/data/wrn_small_tab.bed-tmp

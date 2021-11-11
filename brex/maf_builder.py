@@ -6,7 +6,7 @@ class MafBuilder:
        logging.basicConfig(filename='brex.log', level=logging.DEBUG)        
        logging.info("MafBuilder instantiated. ")
     #
-    #   returns a list of all species and writes them to the outfile 
+    #   returns a list of all species included in the alignment inside the maf and writes them to the outfile 
     #
     def get_species_in_maf(self, maf, out):        
         species = {}
@@ -65,6 +65,8 @@ class MafBuilder:
         mf.close()
         rmf.close()
     #    
+    #   puts out a bed and a maf that only include the indels contained in the maf
+    #
     def find_indels_for_query_from_maf(self, maf, target, query, maf_out, bed_out):
         m_out = open(maf_out, "w")
         b_out = open(bed_out, "w")
@@ -93,7 +95,7 @@ class MafBuilder:
                         header = header + line
                         print(line)
                         print(header)
-                #Block is over. If both lines are filled, proceed
+                #block is over. If both lines are filled, proceed
                 if line == "\n":                    
                     if len(query_line) > 0 and len(target_line) > 0 and self.is_indel(target_line, query_line):
                         if len(scaffold) == 0:
