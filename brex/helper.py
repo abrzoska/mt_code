@@ -19,13 +19,11 @@ class Helper:
         file_to_open=Path(file)
         print(file_to_open)
         if not os.path.exists(file_to_open):
-            self.exit_w_error("Could not find file. Path does not exist.")
+            self.exit_w_error("Could not find file. Path does not exist: " +file)
 
-    def get_file_type(self, name):
-        if name.endswith('.bam'):
-            return Type.BAM
-        return Type.BED
-
+    ##
+    ##
+    ##
     def cut_down_bed_file(self,old_file_name, new_file_name, size):
         file=open(old_file_name, 'r')
         new_file=open(new_file_name, 'w')
@@ -38,11 +36,6 @@ class Helper:
 
     def remove_quotation_marks(self, str):
         return str.replace("'", "")
-
-
-class Type(Enum):
-    BAM = 1
-    BED = 2
 
 
 
