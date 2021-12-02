@@ -9,8 +9,3 @@ try:
 except ImportError as e:
     sys.exit("Module brex not found. Make sure you entered the correct path.")
 print("Loaded brex from Pythonpath")
-try:
-    import bamread
-except ImportError as e:
-    sys.exit("Module bamread not found. Make sure it is installed where python can find it.")
-print("Loaded bamread from Pythonpath")

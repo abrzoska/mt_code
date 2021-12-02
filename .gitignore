@@ -1,3 +1,4 @@
 main.py
 brex/__pycache__/*
 *.txt
+*.log
