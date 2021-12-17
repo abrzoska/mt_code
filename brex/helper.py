@@ -21,9 +21,6 @@ class Helper:
         if not os.path.exists(file_to_open):
             self.exit_w_error("Could not find file. Path does not exist: " +file)
 
-    ##
-    ##
-    ##
     def cut_down_bed_file(self,old_file_name, new_file_name, size):
         file=open(old_file_name, 'r')
         new_file=open(new_file_name, 'w')
