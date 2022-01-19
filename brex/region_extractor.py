@@ -51,6 +51,8 @@ class RegionExtractor:
         score_line = ""   
         out_block_lines = []
         in_block_lines = []
+        out_block_seqs = []
+        in_block_seqs = []        
         adapted_species_lines = []
         species_list = ""
         with open(maf, "r")as mf:
@@ -115,9 +117,7 @@ class RegionExtractor:
                                     is_adapted = False
                                     for line in out_block_lines:
                                         seq = self.get_sequence_from_maf_line(line)
-                                        if self.get_similarity(query_seq[i[0]:i[1]], seq[i[0]:i[1]]) > self.SIMILARITY:
-                                            #print(" Gap too? {0}-{1} : {2} ".format(i[0],i[1],seq[i[0]:i[1]]))
-                                            #print("similarity ratio {0} \n".format(self.get_similarity(query_seq[i[0]:i[1]], seq[i[0]:i[1]])))                                 
+                                        if self.get_similarity(query_seq[i[0]:i[1]], seq[i[0]:i[1]]) > self.SIMILARITY:    
                                             ##COOL
                                             ##get bed formation?
                                             ## collect all species !!
@@ -129,7 +129,6 @@ class RegionExtractor:
                                                 is_adapted = True
                                                 #print(line)
                                             b_out.write(self.get_bed_line(target_line,line, "del", i[0], i[1], del_number, is_adapted))
-                                            del_number = del_number + 1
                                         is_adapted = False
                                 is_indel_present_in_in_group = False
                                 #if len(species_list) > 0 :
@@ -138,6 +137,7 @@ class RegionExtractor:
                                 #for line in out_block_lines:
                                     #seq = self.get_sequence_from_maf_line(line)
                         #write to maf file
+                            del_number = del_number + 1
                         m_out.write(score_line)
                         m_out.write(target_line)
                         m_out.write(query_line)
@@ -154,15 +154,16 @@ class RegionExtractor:
         mf.close()    
         m_out.close()
         b_out.close()   
-    ##NEW NEW NEW
     def get_bed_line(self, target, line, indel, s, e, number, is_adapted):
         scaffold = self.get_scaffold_from_maf_line(target)
         block_start = self.get_start_from_maf_line(target)
+        strand = self.get_strand_from_maf_line(target)
         start = s + int(block_start)
         end = e + int(block_start)       
         name = self.get_species_from_maf_line(line) +"."+ indel + "."+ str(number)
         color = self.get_color(indel, is_adapted)
-        return f'{scaffold}\t{start}\t{end}\t{name}\t0\t.\t{start}\t{end}\t{color}\n'
+        return f'{scaffold}\t{start}\t{end}\t{name}\t0\t{strand}\t{start}\t{end}\t{color}\n'
+    
     def run(self, start, end, scaffold, maf_in, target_species, query_species, adapted_species, in_group, m_out, b_out):
         ## check all files + log
         complete_path = os.getcwd()+self.TMP_FOLDER 
@@ -245,14 +246,7 @@ class RegionExtractor:
         for i, gap in enumerate(matches, 1):
             #gap_locations.append([gap.start(),gap.end()-1])
             gap_locations.append([gap.start(),gap.end()])
-        return gap_locations            
-    # def get_in_or_del(self, targetsize, querysize):
-        # if targetsize > querysize:
-            # return "del"
-        # elif targetsize < querysize:
-            # return "in"
-        # else:
-            # return "m"            
+        return gap_locations                     
     def get_size(self, maf_line):
         pattern = re.compile("[0-9]")
         l = maf_line.split()
@@ -305,7 +299,15 @@ class RegionExtractor:
         if(len(l) > 1 and pattern.match(l[1])):        
             return l[1].split(".")[0]
         else:
-            return -1            
+            return -1       
+    def get_strand_from_maf_line(self,line):
+        pattern = re.compile("[+-]")
+        l = line.split()
+        #print(l)
+        if(len(l) > 1 and pattern.match(l[4])):        
+            return l[4]
+        else:
+            return -1   
     def get_sequence_from_maf_line(self,line):
         pattern = re.compile("[a-zA-Z0-9]*")
         l = line.split()
@@ -355,11 +357,11 @@ class RegionExtractor:
             for line in mf:
                 l = self.get_species_from_maf_line(line)                
                 if l == -1 or l in species_reduced:
+                    print(l)
                     rmf.write(line)
         mf.close()
         rmf.close()    
-    ##    returns the bed version of a maf line   
-     
+    ##    returns the bed version of a maf line        
     def is_indel(self, target, query):
         return self.get_size(target) != self.get_size(query)
     def is_gaps_only(self, str_array):

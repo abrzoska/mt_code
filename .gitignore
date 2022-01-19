@@ -3,3 +3,5 @@ brex/__pycache__/*
 *.txt
 *.log
 tmp/*
+*.pkl
+*.pdf
