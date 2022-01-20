@@ -76,15 +76,12 @@ for line in gene_file:
     line = line.strip()
     reg_ex = rex.RegionExtractor()
     print("Running {0}".format(line))
-    print("Size of csv {0}".format(len(df.index)))
-    #gene = df.loc[df['Gene_stable_ID'] == line]
+    #print("Size of csv {0}".format(len(df.index)))
     gene = df[df['Gene_stable_ID'] == line] 
-    #print(gene)
-    print("Size of csv {0} after assignment".format(len(df.index)))
+    #print("Size of csv {0} after assignment".format(len(df.index)))
     if not gene.empty:#len(gene.index) > 0:
-        print(gene)
+        #print(gene)
         column = gene["Chromosome_scaffold_name"]
-        #Gene_stable_ID,Transcript_stable_ID,Chromosome_scaffold_name,Transcript_start,Transcript_end
         column = gene["Transcript_start"]
         end = column.max()
         start = end-upstream_region
@@ -95,9 +92,10 @@ for line in gene_file:
         else:
             scaffold = s        
         print("scaffold {0}".format(scaffold))
+        b_header = f'track name="Indels for {query_species} {line} ({scaffold}:{start}-{end})" itemRgb="On"\n'
         [output_bed, output_maf] = get_output_name(line, output_folder)
         print("output_bed {0}".format(output_bed))
-        reg_ex.run(start, end, scaffold, input_maf, target_species, query_species, adapted, in_group, output_maf, output_bed)
+        reg_ex.run(start, end, scaffold, input_maf, target_species, query_species, adapted, in_group, output_maf, output_bed, b_header)
         print("...done")
     else: 
         print("Gene {0} not found in BioMart file, skipping".format(line))   

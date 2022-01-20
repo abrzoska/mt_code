@@ -12,10 +12,12 @@ from difflib import SequenceMatcher
 class RegionExtractor:
     MIN_INDEL_SIZE = 4
     TMP_FOLDER = "/tmp"
-    SIMILARITY = 0.8
-    #TODO ddefine a overlap to feather below case
+    #define a overlap to feather below case
     # A-----A
-    # -------
+    # -------    
+    GAP_SIMILARITY = 0.8
+    NON_GAP_SIMILARITY = 0.0
+
     def __init__(self):
         self.helper = h.Helper()
         logging.basicConfig(filename='brex.log', level=logging.DEBUG)
@@ -23,10 +25,8 @@ class RegionExtractor:
     ##   find candidates within range for bfile 
     def find_bed_candidates(self, bfile, bfile_name, scaffold, start, end, output_dir):
         gr = self.helper.read_bedfile(bfile)
-        ##s = self.helper.remove_quotation_marks(scaffold)
-        s=scaffold
         print("Scaffold {0}".format(scaffold))
-        cand = gr[s,start:end].as_df()
+        cand = gr[scaffold,start:end].as_df()
         output = self.get_output_name(bfile_name, scaffold, start, end, output_dir)
         self.write_bed_cand_to_output(cand, output)
         return output        
@@ -38,14 +38,14 @@ class RegionExtractor:
     ##   puts out a bed and a maf (query and target species only) that only  
     ##   include the indels contained in the maf
     ##   TODO indicate in-group
-    def find_indels_for_query_from_maf(self, maf, target, query, in_group, adapted_species, maf_out, bed_out):
+    def find_indels_for_query_from_maf(self, maf, target, query, in_group, adapted_species, maf_out, bed_out, b_header):
         m_out = open(maf_out, "w")
         b_out = open(bed_out, "w")
         del_number = 1
         in_number = 1        
         scaffold = ""    
         is_target_in_in_group = target in in_group
-        b_out.write(f'track name="Indels for {query}" itemRgb="On"\n')
+        b_out.write(b_header)
         target_line = ""
         query_line = ""
         score_line = ""   
@@ -53,7 +53,6 @@ class RegionExtractor:
         in_block_lines = []
         out_block_seqs = []
         in_block_seqs = []        
-        adapted_species_lines = []
         species_list = ""
         with open(maf, "r")as mf:
             for line in mf:           
@@ -82,21 +81,13 @@ class RegionExtractor:
                         ##add in target line
                         if is_target_in_in_group:
                             in_block_lines.append(target_line)
-                            in_block_seqs.append(self.get_sequence_from_maf_line(target_line))
                         else: 
                             out_block_lines.append(target_line)   
                         ##
-                        for line in in_block_lines:
-                            in_block_seqs.append(self.get_sequence_from_maf_line(line))
                         for idx, line in enumerate(out_block_lines):
-                            out_block_seqs.append(self.get_sequence_from_maf_line(line))
                             species = self.get_species_from_maf_line(line)
-                            if species in adapted_species:
-                                adapted_species_lines.append(idx)
                         if len(scaffold) == 0:
-                            scaffold = self.get_scaffold_from_maf_line(target_line)
-                        # if len(adapted_species_lines) > 0:
-                            # print("adapted_species_lines")# print(adapted_species_lines) 
+                            scaffold = self.get_scaffold_from_maf_line(target_line) 
                         ##pseudo code
                         ##get gap locations
                         query_seq = self.get_sequence_from_maf_line(query_line)
@@ -109,7 +100,7 @@ class RegionExtractor:
                                 for line in in_block_lines:
                                     seq = self.get_sequence_from_maf_line(line)
                                     ##if this gap is shared by the in-group we do not care 
-                                    if self.get_similarity(query_seq[i[0]:i[1]], seq[i[0]:i[1]]) > self.SIMILARITY:
+                                    if self.get_similarity(query_seq[i[0]:i[1]], seq[i[0]:i[1]]) > self.GAP_SIMILARITY:
                                         is_indel_present_in_in_group = True
                                         break        
                                 ##check if present in outgroup#
@@ -117,27 +108,42 @@ class RegionExtractor:
                                     is_adapted = False
                                     for line in out_block_lines:
                                         seq = self.get_sequence_from_maf_line(line)
-                                        if self.get_similarity(query_seq[i[0]:i[1]], seq[i[0]:i[1]]) > self.SIMILARITY:    
-                                            ##COOL
-                                            ##get bed formation?
-                                            ## collect all species !!
+                                        if self.get_similarity(query_seq[i[0]:i[1]], seq[i[0]:i[1]]) > self.GAP_SIMILARITY:    
                                             current_species = self.get_species_from_maf_line(line)
-                                            #species_list = species_list + " ... "+ current_species
-                                            #print(line)
-                                            ##TODO IS ADAPTED?
                                             if current_species in adapted_species:
                                                 is_adapted = True
-                                                #print(line)
                                             b_out.write(self.get_bed_line(target_line,line, "del", i[0], i[1], del_number, is_adapted))
                                         is_adapted = False
                                 is_indel_present_in_in_group = False
-                                #if len(species_list) > 0 :
-                                    #print("species_list {0}".format(species_list))
-                                #species_list = ""
-                                #for line in out_block_lines:
-                                    #seq = self.get_sequence_from_maf_line(line)
-                        #write to maf file
                             del_number = del_number + 1
+                        ##NON GAPS
+                        query_gaps = self.get_non_gap_locations(query_seq)
+                        is_indel_present_in_in_group = False
+                        for i in query_gaps:
+                            gapsize = abs(i[0]-i[1])
+                            if gapsize > self.MIN_INDEL_SIZE:
+                            ##check if it present in ingroup
+                                for line in in_block_lines:
+                                    seq = self.get_sequence_from_maf_line(line)
+                                    ##if this non gap is shared by the in-group we do not care 
+                                    if self.get_similarity(query_seq[i[0]:i[1]], seq[i[0]:i[1]]) > self.NON_GAP_SIMILARITY:
+                                        is_indel_present_in_in_group = True
+                                        break        
+                                ##check if present in outgroup
+                                if not is_indel_present_in_in_group:
+                                    is_adapted = False
+                                    for line in out_block_lines:
+                                        seq = self.get_sequence_from_maf_line(line)
+                                        if self.get_similarity(query_seq[i[0]:i[1]], seq[i[0]:i[1]]) > self.NON_GAP_SIMILARITY:    
+                                            current_species = self.get_species_from_maf_line(line)
+                                            if current_species in adapted_species:
+                                                is_adapted = True
+                                            b_out.write(self.get_bed_line(target_line,line, "in", i[0], i[1], in_number, is_adapted))
+                                        is_adapted = False
+                                is_indel_present_in_in_group = False
+                            del_number = del_number + 1
+                            in_number = in_number + 1
+                        #write to maf file                         
                         m_out.write(score_line)
                         m_out.write(target_line)
                         m_out.write(query_line)
@@ -146,11 +152,7 @@ class RegionExtractor:
                     target_line = ""
                     query_line = ""
                     out_block_lines = []
-                    in_block_lines = []
-                    out_block_seqs = []
-                    in_block_seqs = []
-                    adapted_species_lines = []
-                    in_group_species_w_same_indel = []                     
+                    in_block_lines = []                 
         mf.close()    
         m_out.close()
         b_out.close()   
@@ -162,9 +164,11 @@ class RegionExtractor:
         end = e + int(block_start)       
         name = self.get_species_from_maf_line(line) +"."+ indel + "."+ str(number)
         color = self.get_color(indel, is_adapted)
-        return f'{scaffold}\t{start}\t{end}\t{name}\t0\t{strand}\t{start}\t{end}\t{color}\n'
+        fff = f'{scaffold}\t{start}\t{end}\t{name}\t0\t{strand}\t{start}\t{end}\t{color}\n'
+        #print(fff)
+        return fff
     
-    def run(self, start, end, scaffold, maf_in, target_species, query_species, adapted_species, in_group, m_out, b_out):
+    def run(self, start, end, scaffold, maf_in, target_species, query_species, adapted_species, in_group, m_out, b_out, b_header):
         ## check all files + log
         complete_path = os.getcwd()+self.TMP_FOLDER 
         print("Location of tmp folder: {0}".format(complete_path))
@@ -190,9 +194,7 @@ class RegionExtractor:
             print("Finished mafsInRegion.")
         else:
             print("maf file {0} exists.".format(maf_out)) 
-        ####maf, target, query, in_group, adapted_species, maf_out, bed_out
-        
-        self.find_indels_for_query_from_maf(maf_out,target_species,query_species, in_group, adapted_species, m_out, b_out)
+        self.find_indels_for_query_from_maf(maf_out,target_species,query_species, in_group, adapted_species, m_out, b_out, b_header)
         print("Maf file containing Indels {0}".format(m_out))
         print("Bed file containing Indels {0}".format(b_out))    
     ##   given a query bed and a list of additions .bed files, get a listing of which elements from the query .bed 
@@ -219,7 +221,7 @@ class RegionExtractor:
                         cand = file[scaffold,start:end].as_df()
                         #if cand.columns
                         column_name = cand.columns
-                        print("sdlsadklsd -{0}-".format(column_name))
+                        #print("sdlsadklsd -{0}-".format(column_name))
                         #cand['Notes'] = cand. + "_" + name
                     ##########
                     ##print to command line
@@ -246,7 +248,14 @@ class RegionExtractor:
         for i, gap in enumerate(matches, 1):
             #gap_locations.append([gap.start(),gap.end()-1])
             gap_locations.append([gap.start(),gap.end()])
-        return gap_locations                     
+        return gap_locations 
+    def get_non_gap_locations(self, seq):
+        gap_locations = []
+        matches = list(re.finditer('[ACGTacgt]+', seq))       
+        for i, gap in enumerate(matches, 1):
+            gap_locations.append([gap.start(),gap.end()])
+        #print("seq: {0} -> matches {1}".format(seq,gap_locations))
+        return gap_locations         
     def get_size(self, maf_line):
         pattern = re.compile("[0-9]")
         l = maf_line.split()
@@ -259,7 +268,10 @@ class RegionExtractor:
             else:
                 return "235,64,52"
         elif indel == "in":
-            return "60,222,49"
+            if is_adapted:
+                return "73,116,165"
+            else:
+                return "60,222,49"           
         else:
             return "133,133,133"            
     def get_range_from_row(self,row):
