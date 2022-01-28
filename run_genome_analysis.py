@@ -83,19 +83,20 @@ for line in gene_file:
         #print(gene)
         column = gene["Chromosome_scaffold_name"]
         column = gene["Transcript_start"]
-        end = column.max()
-        start = end-upstream_region
-        print("start {0} - end {1}".format(start, end))
+        latest_transcription_start = column.max()
+        earliest_transcription_start = column.min()
+        upstream_cutoff = earliest_transcription_start-upstream_region
+        print("Upstream cutoff {0} - Latest Transcription start {1}".format(upstream_cutoff, latest_transcription_start))
         s = gene.loc[gene.index[0], 'Chromosome_scaffold_name']
         if s.isnumeric():
             scaffold = "chr{0}".format(s)
         else:
             scaffold = s        
         print("scaffold {0}".format(scaffold))
-        b_header = f'track name="Indels for {query_species} {line} ({scaffold}:{start}-{end})" itemRgb="On"\n'
+        b_header = f'track name="Indels for {query_species} {line} ({scaffold}:{upstream_cutoff}-{latest_transcription_start})" itemRgb="On"\n'
         [output_bed, output_maf] = get_output_name(line, output_folder)
         print("output_bed {0}".format(output_bed))
-        reg_ex.run(start, end, scaffold, input_maf, target_species, query_species, adapted, in_group, output_maf, output_bed, b_header)
+        reg_ex.run(upstream_cutoff, latest_transcription_start, scaffold, input_maf, target_species, query_species, adapted, in_group, output_maf, output_bed, b_header)
         print("...done")
     else: 
         print("Gene {0} not found in BioMart file, skipping".format(line))   

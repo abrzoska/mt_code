@@ -15,12 +15,14 @@ def get_list_of_aliases(gene_name):
         #print(len(ids))
         if ids == []:
             print("Not Found with Preferred Symbol.")
-            all_ids_entries =  entrez.esearch(db="gene",term="{gene_name} and 9606 [taxonomy id]".format(gene_name=gene_name),retmode="json")
+            all_ids_entries =  Entrez.esearch(db="gene",term="{gene_name} and 9606 [taxonomy id]".format(gene_name=gene_name),retmode="json")
             all_ids_json = json.loads(all_ids_entries.read())
             all_ids = all_ids_json['esearchresult']['idlist']
+            print("\tOther candidates:")
+            print(all_ids)
             # print all_ids
             for id in all_ids:
-                record_with_aliases = entrez.efetch(db="gene",id=id,retmode="json")
+                record_with_aliases = Entrez.efetch(db="gene",id=id,retmode="json")
                 aliases = []
                 for line in record_with_aliases:
                     if line.startswith("official symbol:"):
@@ -70,7 +72,10 @@ def get_dict_from_gene_list(file, dict):
     #      
     with open(file, "r")as lf:
         for gene_name_unclean in lf:
-            gene_name = gene_name_unclean.strip()
+            if gene_name_unclean.isspace():
+                continue
+            gn = gene_name_unclean.split()
+            gene_name = gn[0].strip()
             print("Checking {0}".format(gene_name))
             if gene_name in dict_of_tfs:
                 print("Gene entry already exists: {0}.".format(gene_name))
@@ -148,11 +153,11 @@ def check_which_tfs_are_in_common(dict_name,tfmv_out, cmp_result):
 
     outfile.close()
 def main(infile, outfile, dict, tfmv_in, tfmv_tf, tfmv_out, comparison_result):  
-    #remove_duplicates(infile, outfile)
-    #get_dict_from_gene_list(outfile, dict)
-    #get_tfmotifview_tfs_from_bed(tfmv_in, tfmv_tf)
-    #remove_duplicates(tfmv_tf, tfmv_out)
+    remove_duplicates(infile, outfile)
+    get_dict_from_gene_list(outfile, dict)
+    get_tfmotifview_tfs_from_bed(tfmv_in, tfmv_tf)
+    remove_duplicates(tfmv_tf, tfmv_out)
     check_which_tfs_are_in_common(dict, tfmv_out, comparison_result) 
         
 if __name__ == "__main__":  
-    main("genes.txt", "genes_clean.txt", "genesWRN", "wrn_small.bed", "wrn_small_tf_only.txt","wrn_small_clean.txt", "results.txt")    
+    main("wrn_encode.txt", "wrn_encode_clean.txt", "arc", "wrn_TF.txt", "wrn_TF_.txt","wrn_TF_clean.txt", "results.txt")    
