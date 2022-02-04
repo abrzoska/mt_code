@@ -1,5 +1,6 @@
 #############################################################################
 import sys 
+from time import perf_counter
 try:
     import pandas as pd
 except ImportError as e:
@@ -14,6 +15,7 @@ try:
 except ImportError as e:
     print(e)
     sys.exit("Module brex not found. Try running setup.py")
+
 #############################################################################
 ##                     HIER DATEN EINFÜGEN                                 ##
 #############################################################################
@@ -22,13 +24,13 @@ except ImportError as e:
 ##                             ENSEMBL ID                                  ##
 ##                                                                         ##
 #############################################################################
-#ensembl_id="ENSMUSG00000086493"
 bio_mart_csv="mart_export.txt"
 gene_list="mouse_genes_list_reduced.txt"
 upstream_region=50000
 #############################################################################
 ##                                                                         ##
-##                     ORT DES GENOMABSCHNITTS                             ##
+##                          MANUELLE EINGABE                               ##
+##                         DES GENOMABSCHNITTS                             ##
 ##                                                                         ##
 #############################################################################
 ## FÜGE HIER DIE SCAFFOLD DES GENOMABSCHNITTES EIN
@@ -43,8 +45,9 @@ upstream_region=50000
 ##                                                                         ##
 #############################################################################
 ## PFAD ZUR MAF
-input_maf = "/moreAddSpace/abrzoska/mm10/group.maf"
-## SPECIES AUF DER DIE MAF BASIERT
+#input_maf = "/moreAddSpace/abrzoska/mm10/group.maf"
+input_maf = "/moreAddSpace/abrzoska/mm10/multi.anno.maf"
+## REFERENZ SPECIES AUF DER DIE MAF BASIERT
 target_species="mm10"
 #############################################################################
 ##                                                                         ##
@@ -57,6 +60,8 @@ query_species="nanGal1"
 in_group= ["mm10", "rn6"]
 ##LISTE ADAPTIERTER SPEZIES (INDELS DIE DIESEN TEILEN WERDEN HERVORGEHOBEN)
 adapted=["hetGla2"]
+##LABEL DAS DIE ART DER ADAPTION BESCHREIBT
+adapted_label="ll"
 #############################################################################
 ##                                                                         ##
 ##                            OUTPUT                                       ##
@@ -64,6 +69,8 @@ adapted=["hetGla2"]
 #############################################################################
 ##ORDNER AN DEM DIE BED/MAF ABGELEGT WIRD
 output_folder="../mouse"
+##NAME THIS RUN
+run_name="blahj"
 #############################################################################
 ### FIND REGIONS ###
 def get_output_name(line, output_folder):
@@ -72,12 +79,13 @@ def get_output_name(line, output_folder):
     return [name_bed, name_maf]
 gene_file = open(gene_list, "r")        
 df = pd.read_csv(bio_mart_csv) 
+reg_ex = rex.RegionExtractor(run_name)  
 for line in gene_file:
+    gene_line_start_counter = perf_counter()
     line = line.strip()
-    reg_ex = rex.RegionExtractor()
     print("Running {0}".format(line))
     #print("Size of csv {0}".format(len(df.index)))
-    gene = df[df['Gene_stable_ID'] == line] 
+    gene = df[df['Gene_stable_ID'] == line]
     #print("Size of csv {0} after assignment".format(len(df.index)))
     if not gene.empty:#len(gene.index) > 0:
         #print(gene)
@@ -96,14 +104,18 @@ for line in gene_file:
         b_header = f'track name="Indels for {query_species} {line} ({scaffold}:{upstream_cutoff}-{latest_transcription_start})" itemRgb="On"\n'
         [output_bed, output_maf] = get_output_name(line, output_folder)
         print("output_bed {0}".format(output_bed))
-        reg_ex.run(upstream_cutoff, latest_transcription_start, scaffold, input_maf, target_species, query_species, adapted, in_group, output_maf, output_bed, b_header)
+        reg_ex.run(upstream_cutoff, latest_transcription_start, scaffold, input_maf, target_species, query_species, adapted, in_group, output_maf, output_bed, b_header,adapted_label)
         print("...done")
     else: 
         print("Gene {0} not found in BioMart file, skipping".format(line))   
+    gene_line_stop_counter = perf_counter()
+    time = gene_line_stop_counter-gene_line_start_counter
+    print('Elapsed time in seconds:", %.4f' % time)
+
    
 #############################################################################
 ### GET LIST OF SPECIES INSIDE A MAF ###
-#reg_ex.get_species_in_maf(reduced_maf, "out.txt")
+#reg_ex.get_species_in_maf(input_maf, "out.txt")
 #############################################################################
 ### REDUCE A MAF TO LIST OF SPECIFIED SPECIES ###
 #reg_ex.reduce_maf_via_list("output/mafsInRegion/wrn_species.txt","output/mafsInRegion/wrn.maf","output/mafsInRegion/wrn_reduced.maf")

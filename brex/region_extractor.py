@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 import subprocess
 from difflib import SequenceMatcher
-
+from time import perf_counter
 class RegionExtractor:
     MIN_INDEL_SIZE = 4
     TMP_FOLDER = "/tmp"
@@ -21,14 +21,16 @@ class RegionExtractor:
     GAP_TOLERANCE = 0.02
     NON_GAP_TOLERANCE = 0.9
     BAR_SIZE=5
-    def __init__(self):
+    def __init__(self,run_name):
         self.helper = h.Helper()
-        logging.basicConfig(filename='brex.log', level=logging.DEBUG)
-        logging.info("RegionExtractor instantiated. ")
+        name_log = "RE_{0}.log".format(run_name)
+        logging.basicConfig(filename=name_log, level=logging.DEBUG)
+        logging.info("RegionExtractor instantiated")
     ##   find candidates within range for bfile 
     def find_bed_candidates(self, bfile, bfile_name, scaffold, start, end, output_dir):
         gr = self.helper.read_bedfile(bfile)
         print("Scaffold {0}".format(scaffold))
+        logging.info("Scaffold {0}".format(scaffold))
         cand = gr[scaffold,start:end].as_df()
         output = self.get_output_name(bfile_name, scaffold, start, end, output_dir)
         self.write_bed_cand_to_output(cand, output)
@@ -41,7 +43,7 @@ class RegionExtractor:
     ##   puts out a bed and a maf (query and target species only) that only  
     ##   include the indels contained in the maf
     ##   TODO indicate in-group
-    def find_indels_for_query_from_maf(self, maf, target, query, in_group, adapted_species, maf_out, bed_out, b_header):
+    def find_indels_for_query_from_maf(self, maf, target, query, in_group, adapted_species, maf_out, bed_out, b_header,adapted_label):
         m_out = open(maf_out, "w")
         b_out = open(bed_out, "w")
         del_number = 1
@@ -96,55 +98,48 @@ class RegionExtractor:
                         ##      IN MOUSE        #
                         #########################     
                         target_gaps = self.get_gap_locations(target_seq)
-                        #query_gaps = self.get_non_gap_locations(query_seq)
-                        #for i in query_gaps:
                         for i in target_gaps:
                             gapsize = abs(i[0]-i[1])
                             if gapsize > self.MIN_INDEL_SIZE:    
-                                is_indel_present_in_in_group = False
                                 query_indel = query_seq[i[0]:i[1]]
                                 ##both are gaps
                                 if self.is_mostly_gaps(query_indel):
-                                    if target_species in in_group:
-                                        is_indel_present_in_in_group = True
-                                    else:
-                                        for line in in_block_lines:
-                                            seq = self.get_sequence_from_maf_line(line)
-                                            if self.is_mostly_gaps(seq[i[0]:i[1]]):
-                                                is_indel_present_in_in_group = True
-                                                break;
-                                        if not is_indel_present_in_in_group:
-                                            for line in out_block_lines:
-                                                seq = self.get_sequence_from_maf_line(line)
-                                                current_species = self.get_species_from_maf_line(line)
-                                                ##if theyre gap -> shared mutation
-                                                if self.is_mostly_gaps(seq[i[0]:i[1]]):
-                                                    b_out.write(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, current_species in adapted_species, False))
-                                                ##if theyre non gap -> unique mutation
-                                                elif self.is_mostly_non_gaps(seq[i[0]:i[1]]):
-                                                    b_out.write(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, False, True))
-                                elif self.is_mostly_non_gaps(query_indel):
-                                    ##target is not gap 
                                     for line in in_block_lines:
+                                        current_species = self.get_species_from_maf_line(line)
+                                        if current_species in adapted_species:
+                                            if self.is_mostly_gaps(seq[i[0]:i[1]]):
+                                                b_out.write(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, current_species in adapted_species, False, "in", adapted_label))
+                                                    ##if theyre non gap -> unique mutation
+                                            elif self.is_mostly_non_gaps(seq[i[0]:i[1]]):
+                                                b_out.write(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, False, True, "in", adapted_label))
+                                    for line in out_block_lines:
+                                        current_species = self.get_species_from_maf_line(line)                                    
                                         seq = self.get_sequence_from_maf_line(line)
-                                        if self.is_mostly_non_gaps(seq[i[0]:i[1]]):
-                                            is_indel_present_in_in_group = True
-                                            break;
-                                    if not is_indel_present_in_in_group:
-                                        for line in out_block_lines:
-                                            seq = self.get_sequence_from_maf_line(line)
-                                            current_species = self.get_species_from_maf_line(line)
-                                            #if self.is_mostly_gaps(seq):
-                                            ##if theyre non gap -> shared mutation
+                                            ##if theyre gap -> shared mutation
+                                        if self.is_mostly_gaps(seq[i[0]:i[1]]):
+                                            b_out.write(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, current_species in adapted_species, False, "out", adapted_label))
+                                                ##if theyre non gap -> unique mutation
+                                        elif self.is_mostly_non_gaps(seq[i[0]:i[1]]):
+                                            b_out.write(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, False, True, "out", adapted_label))
+                                elif self.is_mostly_non_gaps(query_indel):
+                                    ##TODO for line in in_block_lines:
+                                    for line in in_block_lines:
+                                        current_species = self.get_species_from_maf_line(line)
+                                        if current_species in adapted_species:
                                             if self.is_mostly_non_gaps(seq[i[0]:i[1]]):
-                                                # print("#######################")
-                                                # print("mostly gap t seq?\t{0}\n".format(target_seq[i[0]:i[1]]))
-                                                # print("mostly non gap q seq?\t{0}\n".format(query_indel))
-                                                # print("mostly non gap out seq?\t{0}\n".format(seq[i[0]:i[1]]))
-                                                b_out.write(self.get_bed_line(target_line, line, "in", i[0], i[1], in_number, current_species in adapted_species, False))
-                                            ##if theyre gap -> unique mutation
+                                                b_out.write(self.get_bed_line(target_line, line, "in", i[0], i[1], in_number, current_species in adapted_species, False, "in", adapted_label))
+                                                ##if theyre gap -> unique mutation
                                             elif self.is_mostly_gaps(seq[i[0]:i[1]]):
-                                                b_out.write(self.get_bed_line(target_line, query_line, "in", i[0], i[1], in_number, False, True))
+                                                b_out.write(self.get_bed_line(target_line, query_line, "in", i[0], i[1], in_number, False, True, "in", adapted_label))
+                                    for line in out_block_lines:
+                                        seq = self.get_sequence_from_maf_line(line)
+                                        current_species = self.get_species_from_maf_line(line)
+                                            ##if theyre non gap -> shared mutation
+                                        if self.is_mostly_non_gaps(seq[i[0]:i[1]]):
+                                            b_out.write(self.get_bed_line(target_line, line, "in", i[0], i[1], in_number, current_species in adapted_species, False, "out", adapted_label))
+                                            ##if theyre gap -> unique mutation
+                                        elif self.is_mostly_gaps(seq[i[0]:i[1]]):
+                                            b_out.write(self.get_bed_line(target_line, query_line, "in", i[0], i[1], in_number, False, True, "out", adapted_label))
                         #########################
                         ##      NON GAPS        #
                         ##     IN MOUSE         #
@@ -153,56 +148,70 @@ class RegionExtractor:
                         for i in target_non_gaps:
                             gapsize = abs(i[0]-i[1])
                             if gapsize > self.MIN_INDEL_SIZE:    
-                                is_indel_present_in_in_group = False    
                                 query_indel = query_seq[i[0]:i[1]]
-                                ##both are non gaps
+                                ##both target and query are non gaps
                                 if self.is_mostly_non_gaps(query_indel):
-                                    #print("mostly gap query seq?\t{0}\n###".format(query_indel))
-                                    if target_species in in_group:
-                                        is_indel_present_in_in_group = True
-                                    else:
-                                        for line in in_block_lines:
-                                            seq = self.get_sequence_from_maf_line(line)
+                                    for line in in_block_lines:
+                                        current_species = self.get_species_from_maf_line(line)
+                                        if current_species in adapted_species:
                                             if self.is_mostly_non_gaps(seq[i[0]:i[1]]):
-                                                #print("mostly gap in seq?\t{0}\n###".format(seq[i[0]:i[1]]))
-                                                #print("mostly in line gap seq?\n{0}\n###".format(seq))
-                                                is_indel_present_in_in_group = True
-                                                break;
-                                        if not is_indel_present_in_in_group:
-                                            for line in out_block_lines:
-                                                #print("mostly gap out seq?\t{0}\n###".format(seq[i[0]:i[1]]))
-                                                seq = self.get_sequence_from_maf_line(line)
-                                                current_species = self.get_species_from_maf_line(line)
-                                                ##if theyre non gap -> shared mutation
-                                                if self.is_mostly_non_gaps(seq[i[0]:i[1]]):
-                                                    b_out.write(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, current_species in adapted_species, False))
+                                                b_out.write(self.get_bed_line(target_line, line, "in", i[0], i[1], in_number, current_species in adapted_species, False, "in", adapted_label))
                                                 ##if theyre gap -> unique mutation
-                                                elif self.is_mostly_gaps(seq[i[0]:i[1]]):
-                                                    b_out.write(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, False, True))
+                                            elif self.is_mostly_gaps(seq[i[0]:i[1]]):
+                                                b_out.write(self.get_bed_line(target_line, query_line, "in", i[0], i[1], in_number, False, True, "in", adapted_label))
+                                                #print("mostly gap query seq?\t{0}\n###".format(query_indel))
+                                    ##TODO for line in in_block_lines:
+                                    for line in out_block_lines:
+                                                #print("mostly gap out seq?\t{0}\n###".format(seq[i[0]:i[1]]))
+                                        seq = self.get_sequence_from_maf_line(line)
+                                        current_species = self.get_species_from_maf_line(line)
+                                                ##if theyre non gap -> shared mutation
+                                        if self.is_mostly_non_gaps(seq[i[0]:i[1]]):
+                                            b_out.write(self.get_bed_line(target_line, line, "in", i[0], i[1], in_number, current_species in adapted_species, False, "out", adapted_label))
+                                                ##if theyre gap -> unique mutation
+                                        elif self.is_mostly_gaps(seq[i[0]:i[1]]):
+                                            b_out.write(self.get_bed_line(target_line, query_line, "in", i[0], i[1], in_number, False, True, "out", adapted_label))
+                                ##
                                 if self.is_mostly_gaps(query_indel):
                                     #print("mostly non gap t seq?\t{0}\n".format(target_seq[i[0]:i[1]]))
                                     #print("mostly non gap q seq?\t{0}\n".format(query_indel))
                                     ##query is gap, target is non gap 
                                     for line in in_block_lines:
-                                        seq = self.get_sequence_from_maf_line(line)
-                                        if self.is_mostly_gaps(seq[i[0]:i[1]]):
-                                            is_indel_present_in_in_group = True
-                                            break;
-                                    if not is_indel_present_in_in_group:
-                                        for line in out_block_lines:
-                                            seq = self.get_sequence_from_maf_line(line)
-                                            #print("mostly non gap out seq?\t{0}\n".format(seq[i[0]:i[1]]))
-                                            current_species = self.get_species_from_maf_line(line)
-                                            #if self.is_mostly_gaps(seq):
+                                        current_species = self.get_species_from_maf_line(line)
+                                        if current_species in adapted_species:
                                             ##if line gap -> shared mutation
                                             if self.is_mostly_gaps(seq[i[0]:i[1]]):
-                                                b_out.write(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, current_species in adapted_species, False))
+                                                b_out.write(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, current_species in adapted_species, False, "in", adapted_label))
                                             ##if line non gap -> unique mutation
                                             elif self.is_mostly_non_gaps(seq[i[0]:i[1]]):
-                                                b_out.write(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, False, True))   
+                                                b_out.write(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, False, True, "in", adapted_label))
+                                    for line in out_block_lines:
+                                        seq = self.get_sequence_from_maf_line(line)
+                                            #print("mostly non gap out seq?\t{0}\n".format(seq[i[0]:i[1]]))
+                                        current_species = self.get_species_from_maf_line(line)
+                                            #if self.is_mostly_gaps(seq):
+                                            ##if line gap -> shared mutation
+                                        if self.is_mostly_gaps(seq[i[0]:i[1]]):
+                                            b_out.write(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, current_species in adapted_species, False, "out", adapted_label))
+                                            ##if line non gap -> unique mutation
+                                        elif self.is_mostly_non_gaps(seq[i[0]:i[1]]):
+                                            b_out.write(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, False, True, "out", adapted_label))   
+                        ##TODO count numbers up only if present.    
                             del_number = del_number + 1
                             in_number = in_number + 1
-                        #write to maf file                         
+                        #write to maf file        
+                        ##NEW NEW NEW
+                        #########################
+                        ##        GAPS          #
+                        ##      IN SPALAX        #
+                        #########################     
+                        # query_gaps = self.get_gap_locations(query_seq)
+                        # for i in query_gaps:
+                            # gapsize = abs(i[0]-i[1])
+                            # if gapsize > self.MIN_INDEL_SIZE:    
+                                # is_indel_present_in_in_group = False
+                                # target_ = query_seq[i[0]:i[1]]
+                                
                         m_out.write(score_line)
                         m_out.write(target_line)
                         m_out.write(query_line)
@@ -221,10 +230,11 @@ class RegionExtractor:
         mf.close()    
         m_out.close()
         b_out.close()   
-    def get_bed_line(self, target, line, indel, s, e, number, is_adapted, is_unique_to_query):
+    def get_bed_line(self, target, line, indel, s, e, number, is_adapted, is_unique_to_query, in_or_out_group, adapted_label):
+        #print("\n")
+        #print("############")
         #print("target \t{0}".format(target))
         #print("line \t{0}".format(line))
-
         scaffold = self.get_scaffold_from_maf_line(target)
         start = self.get_start_from_maf_line(target)
         size = self.get_size_from_maf_line(target)
@@ -233,51 +243,70 @@ class RegionExtractor:
         strand = self.get_strand_from_maf_line(target)
         #start = int(block_start)-self.BAR_SIZE
         #end = int(block_start)+self.BAR_SIZE      
-
-        ##
-        #tseq = self.get_sequence_from_maf_line(target)
-        #seq = self.get_sequence_from_maf_line(line)
+        tseq = self.get_sequence_from_maf_line(target)
+        seq = self.get_sequence_from_maf_line(line)
         #print("target seq \t{0}".format(tseq))
         #print("target snip \t{0}".format(tseq[s:e]))
         #print("line seq \t{0}".format(seq))
+        #print("line snip \t{0}".format(seq[s:e]))
         #print("blockstart \t{0} + {1}".format(block_start, s))
         #print("blockend \t{0} + {1}".format(block_start, e))
-        #print("###")
-        ##
-        
-        name = self.get_species_from_maf_line(line) +"."+ indel + "."+ str(number)
+        #print("###")        
+        name = self.get_species_from_maf_line(line)+"."+ in_or_out_group+"."+ adapted_label +"."+ indel + "."+ str(number)
         color = self.get_color(indel, is_adapted, is_unique_to_query)
         return f'{scaffold}\t{start}\t{end}\t{name}\t0\t{strand}\t{start}\t{end}\t{color}\n'
     
-    def run(self, start, end, scaffold, maf_in, target_species, query_species, adapted_species, in_group, m_out, b_out, b_header):
+    def run(self, start, end, scaffold, maf_in, target_species, query_species, adapted_species, in_group, m_out, b_out, b_header,adapted_label):
         ## check all files + log
         complete_path = os.getcwd()+self.TMP_FOLDER 
-        print("Location of tmp folder: {0}".format(complete_path))
+        print("\tLocation of tmp folder: {0}".format(complete_path))
+        logging.info("\tLocation of tmp folder: {0}".format(complete_path))
         if not Path(complete_path).is_dir():
             subprocess.call(['mkdir', complete_path])
-            print("Created Folder {0}.".format(self.TMP_FOLDER))
+            print("\tCreated Folder {0}.".format(self.TMP_FOLDER))
+            logging.info("\tCreated Folder {0}.".format(self.TMP_FOLDER))
         else:
-            print("tmp folder {0} exists.".format(complete_path))            
+            print("\t tmp folder {0} exists.".format(complete_path))
+            logging.info("\ttmp folder {0} exists.".format(complete_path))            
         ## create bed from start, end
         name = "{0}_{1}_{2}".format(scaffold,start,end)
         bed = complete_path+"/"+name+".bed"
         maf_out = complete_path+"/"+name+".maf"
         if not Path(bed).is_file():   
-            print("Writing bed to file .. {0}".format(bed))            
+            print("\tWriting bed to file .. {0}".format(bed))            
+            logging.info("\tWriting bed to file .. {0}".format(bed))            
             with open(bed, 'a') as bedfile:
                 bedfile.write("{0}\t{1}\t{2}\t{3}".format(scaffold,start,end,name))
             bedfile.close()
         else:
-            print("bed file {0} exists.".format(bed))
+            print("\tbed file {0} exists.".format(bed))
+            logging.info("\tbed file {0} exists.".format(bed))
         if not Path(maf_out).is_file():
-            print("Starting mafsInRegion .. {0}".format(maf_out))
+            print("\tStarting mafsInRegion .. {0}".format(maf_out))
+            logging.info("\tStarting mafsInRegion .. {0}".format(maf_out))
+            maf_start_counter = perf_counter()
             subprocess.call(['mafsInRegion', bed, maf_out, maf_in])
-            print("Finished mafsInRegion.")
+            maf_stop_counter = perf_counter()            
+            print("\tFinished mafsInRegion.")
+            logging.info("\tFinished mafsInRegion.")
+            time = gene_line_stop_counter-gene_line_start_counter
+            print('Elapsed time in seconds:", %.4f' % time)
+            logging.info('Elapsed time: %.4f s' % time)
         else:
-            print("maf file {0} exists.".format(maf_out)) 
-        self.find_indels_for_query_from_maf(maf_out,target_species,query_species, in_group, adapted_species, m_out, b_out, b_header)
-        print("Maf file containing Indels {0}".format(m_out))
-        print("Bed file containing Indels {0}".format(b_out))    
+            print("\tmaf file {0} exists.".format(maf_out))
+            logging.info("\tmaf file {0} exists.".format(maf_out))
+        indel_start_counter = perf_counter()            
+        self.find_indels_for_query_from_maf(maf_out,target_species,query_species, in_group, adapted_species, m_out, b_out, b_header,adapted_label)
+        indel_stop_counter = perf_counter()            
+        time = indel_stop_counter-indel_start_counter
+        #print("\tElapsed time in seconds: (find_indels_for_query_from_maf)", time.isoformat(timespec='seconds'))
+        print('\tElapsed time: %.4f s' % time)
+        logging.info('\tElapsed time: %.4f s' % time)
+
+        print("\tMaf file containing Indels {0}".format(m_out))
+        logging.info("\tMaf file containing Indels {0}".format(m_out))
+        print("\tBed file containing Indels {0}".format(b_out))    
+        logging.info("\tBed file containing Indels {0}".format(b_out))    
     ##   given a query bed and a list of additions .bed files, 
     ##   get a listing of which elements from the query .bed 
     ##   have overlaps with elements from the target beds      
@@ -346,18 +375,34 @@ class RegionExtractor:
         if(len(l) > 2 and pattern.match(l[3])):        
             return int(l[3])            
     def get_color(self, indel, is_adapted, is_unique_to_query):
+    #delte
+    ##221,106,76 adapted
+    ##233,156,93 non adapted
+    ##224,188,103 unique
+    ## ->  (170, 224, 103 insert, 224, 158, 103 delete)
+    #insert
+    ##40,151,136 non adapted
+    ##37,67,80 adapted
         if is_unique_to_query:
-            return "128,128,0"
+            if indel == "in":
+                #return "100,128,0"
+                return "170,224,103"
+            #return "128,128,0"
+            return "224,158,103"
         if indel == "del":
             if is_adapted:
-                return "128,0,128"
+                #return "128,0,128"
+                return "221,106,76"
             else:
-                return "235,64,52"
+                #return "235,64,52"
+                return "233,156,93"
         elif indel == "in":
             if is_adapted:
-                return "73,116,165"
+                #return "73,116,165"
+                return "40,151,136"
             else:
-                return "60,222,49"           
+                #return "60,222,49"           
+                return "37,67,80"           
         else:
             return "133,133,133"            
     def get_range_from_row(self,row):
