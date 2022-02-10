@@ -103,16 +103,24 @@ def remove_duplicates(in_path, out_path):
     exists_hash = set()
     outfile = open(out_path, "w")
     for line in open(in_path, "r"):
-        hash = hashlib.md5(line.strip().encode('utf-8')).hexdigest()
+        if line.isspace():
+            continue;
+        gn = line.split()
+        gene_name = gn[0].strip() 
+        #print(gene_name)
+        hash = hashlib.md5(gene_name.encode('utf-8')).hexdigest()
         if hash not in exists_hash:
-            outfile.write(line)
+            outfile.write("{0}\n".format(gene_name))
+            #print("---in: ",gene_name)
             exists_hash.add(hash)
             
 def get_tfmotifview_tfs_from_bed(tfmv_in, tfmv_out):
     outfile = open(tfmv_out, "w")
-    for line in open(tfmv_in, "r"):        
-        line = (line.split()[3]).split(".")[0]
-        outfile.write(line+"\n")
+    for line in open(tfmv_in, "r"):  
+        if line.startswith("#"):
+            continue;
+        l = (line.split()[0]).split(".")[0]        
+        outfile.write(l+"\n")
 
 def check_which_tfs_are_in_common(dict_name,tfmv_out, cmp_result):
     dict_path = os.getcwd()+"/"+"{0}.pkl".format(dict_name)
