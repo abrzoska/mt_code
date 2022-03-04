@@ -156,16 +156,17 @@ def check_which_tfs_are_in_common(dict_name,tfmv_out, cmp_result):
     outfile.write("\nOnly in predictions, based on algorithms (possible False Positive)\n\n")    
     for i in only_in_predictions:
         outfile.write("{0}\n".format(i))      
-
-        
-
     outfile.close()
-def main(infile, outfile, dict, tfmv_in, tfmv_tf, tfmv_out, comparison_result):  
-    remove_duplicates(infile, outfile)
-    get_dict_from_gene_list(outfile, dict)
-    get_tfmotifview_tfs_from_bed(tfmv_in, tfmv_tf)
-    remove_duplicates(tfmv_tf, tfmv_out)
-    check_which_tfs_are_in_common(dict, tfmv_out, comparison_result) 
-        
+#def main(infile, outfile, dict, tfmv_in, tfmv_tf, tfmv_out, comparison_result):  
+#    remove_duplicates(infile, outfile)
+#    get_dict_from_gene_list(outfile, dict)
+#    get_tfmotifview_tfs_from_bed(tfmv_in, tfmv_tf)
+#    remove_duplicates(tfmv_tf, tfmv_out)
+#    check_which_tfs_are_in_common(dict, tfmv_out, comparison_result) 
+def main(infile, outfile):
+    remove_duplicates(infile, outfile)   
+ 
 if __name__ == "__main__":  
-    main("wrn_encode.txt", "wrn_encode_clean.txt", "arc", "wrn_TF.txt", "wrn_TF_.txt","wrn_TF_clean.txt", "results.txt")    
+    #main("wrn_encode.txt", "wrn_encode_clean.txt", "arc", "wrn_TF.txt", "wrn_TF_.txt","wrn_TF_clean.txt", "results.txt")    
+    main("GENES_W_DOUBLES.txt", "GENES_WOUT_DOUBLES.txt")    
+    

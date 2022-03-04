@@ -3,6 +3,7 @@ import requests
 import os
 import sys
 import pyranges as pr
+import pandas as pd
 from brex import helper as h
 from pathlib import Path
 import re
@@ -235,7 +236,57 @@ class RegionExtractor:
         name = self.get_species_from_maf_line(line)+"."+ in_or_out_group+"."+ adapted_label +"."+ indel + "."+ str(number)
         color = self.get_color(indel, is_adapted, is_unique_to_query)
         return f'{scaffold}\t{start}\t{end}\t{name}\t0\t{strand}\t{start}\t{end}\t{color}\n'
-    
+    def run_analysis(self, folder, adapted_label):
+
+    ##iterate over files in folder
+        for filename in os.listdir(folder):
+            f = os.path.join(folder, filename)
+            headerless_filename = "tmp/n_"+filename
+            # checking if it is a file
+            if os.path.isfile(f) and f.endswith(".bed"):
+                print(f)
+                a_file = open(f, "r")
+                lines = a_file.readlines()
+                a_file.close()
+                new_file = open(headerless_filename, "w")
+                headerline = ""
+                no_of_indels = 0
+                for line in lines:
+                    if not line.strip("\n").startswith("track"):        
+                        new_file.write(line)                        
+                    else: 
+                        headerline = line.strip("\n")
+                new_file.close()                
+                #df = (pr.read_bed(headerless_filename, as_df=True))
+                delimiter="\t"
+                columns = ["Chromosome", "Start", "End", "Name", "Score", "Strand,", "ThickStart", "ThickEnd", "ItemRGB"] 
+                df = pd.read_csv(headerless_filename, sep=delimiter, header=None, names=columns)
+                #print(df.columns)
+                #df = df.drop_duplicates(subset=['Name'])
+                #new_file = open(f, "w")
+                new_file = open("tmp/"+filename, "w")
+                new_file.write(headerline+"\n")
+                new_file.write(df.to_string(index=False, header=False))
+                new_file.close()
+                os.remove(headerless_filename)
+                ##analysis
+                names_list = df['Name'].tolist()
+                ##>>> l = ['element1\t0238.94', 'element2\t2.3904', 'element3\t0139847']
+                ##>>> [i.split('\t', 1)[0] for i in l]
+                ##['element1', 'element2', 'element3']
+                numbers = [int(i.split(".")[-1]) for i in names_list]
+                if len(numbers) > 0:
+                    z = max(numbers)
+                    print(z)    
+                    ##
+                    ## 1) InDel ist NUR in Spalax, sonst keiner Spezies
+                    ## 2) InDel ist in Spalax UND einer Spezies aus der Outgroup (egal ob long lived/adaptiert)
+                    ## 3) InDel ist in Spalax UND einer Hypoxie adaptierten Spezies, egal ob Ingroup oder Outgroup
+                    ## 4) InDel ist in Spalax UND einer langlebigen Spezies , egal ob Ingroup oder Outgroup
+                
+                
+
+
     def run(self, start, end, scaffold, maf_in, target_species, query_species, adapted_species, in_group, m_out, b_out, b_header,adapted_label):
         ## check all files + log
         complete_path = os.getcwd()+self.TMP_FOLDER 
@@ -264,12 +315,12 @@ class RegionExtractor:
         if not Path(maf_out).is_file():
             print("\tStarting mafsInRegion .. {0}".format(maf_out))
             logging.info("\tStarting mafsInRegion .. {0}".format(maf_out))
-            maf_start_counter = perf_counter()
+            start_counter = perf_counter()
             subprocess.call(['mafsInRegion', bed, maf_out, maf_in])
-            maf_stop_counter = perf_counter()            
+            stop_counter = perf_counter()            
             print("\tFinished mafsInRegion.")
             logging.info("\tFinished mafsInRegion.")
-            time = gene_line_stop_counter-gene_line_start_counter
+            time = stop_counter-start_counter
             print('Elapsed time in seconds:", %.4f' % time)
             logging.info('Elapsed time: %.4f s' % time)
         else:
@@ -438,7 +489,7 @@ class RegionExtractor:
         if(len(l) > 1 and pattern.match(l[6])):   
             return l[6]
         else:
-            print("AAAAH : ".format(line))
+            #print("AAAAH : ".format(line))
             return -1                 
     def get_scaffold_from_maf_line(self,line):
         pattern = re.compile("[a-zA-Z0-9]*\.[a-zA-Z0-9]*")
