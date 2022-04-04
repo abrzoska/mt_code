@@ -5,3 +5,5 @@ brex/__pycache__/*
 tmp/*
 *.pkl
 *.pdf
+
+.idea/

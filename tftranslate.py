@@ -1,6 +1,5 @@
 import json
 from Bio import Entrez
-import sys
 import os
 import hashlib
 import pickle

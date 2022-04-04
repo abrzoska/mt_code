@@ -1,8 +1,5 @@
 import logging
-import requests
 import os
-import sys
-import pyranges as pr
 import pandas as pd
 from brex import helper as h
 from pathlib import Path

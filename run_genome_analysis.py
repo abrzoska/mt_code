@@ -1,7 +1,6 @@
 #############################################################################
-import sys 
-from time import perf_counter
-from pathlib import Path
+import sys
+
 try:
     import pandas as pd
 except ImportError as e:
