@@ -12,7 +12,7 @@ from difflib import SequenceMatcher
 from time import perf_counter
 class RegionExtractor:
     MIN_INDEL_SIZE = 4
-    TMP_FOLDER = "/tmp"
+    TMP_FOLDER = "/../tmp"
     #define an overlap to feather below case
     # A-----A
     # -------    

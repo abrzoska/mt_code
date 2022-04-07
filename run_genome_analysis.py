@@ -28,7 +28,8 @@ except ImportError as e:
 bio_mart_csv="mart_export.txt"
 #gene_list="mouse_genes_list_reduced.txt"
 #gene_list="genelists/anti_longevity_genes_list.txt"
-gene_list="genelists/pro_longevity_genes_list.txt"
+gene_list="genelists/cross_val_short.txt"
+#gene_list="genelists/pro_longevity_genes_list.txt"
 #gene_list="genelists/dna_repair_genes.txt"
 #gene_list="genelists/cancer_associated_genes.txt"
 #gene_list="genelists/hypoxia_responsive_genes.txt"
@@ -40,7 +41,8 @@ upstream_region=50000
 #############################################################################
 ##NAME THIS RUN 
 #run_name="anti_longevity"
-run_name="pro_longevity"
+run_name="cross_val_short"
+#run_name="pro_longevity"
 #run_name="dna_repair"
 #run_name="cancer_associated"
 #run_name="hypoxia_responsive"
@@ -93,8 +95,8 @@ output_folder="../" + run_name
 #############################################################################
 ### FIND REGIONS ###
 reg_ex = rex.RegionExtractor(run_name)  
-#reg_ex.start_create_bed_and_maf_for_list_of_genes(output_folder, gene_list, bio_mart_csv, upstream_region, input_maf, target_species, query_species, in_group, adapted_dict)
-#reg_ex.run_analysis(output_folder,adapted_labels,query_species,run_name)
+reg_ex.start_create_bed_and_maf_for_list_of_genes(output_folder, gene_list, bio_mart_csv, upstream_region, input_maf, target_species, query_species, in_group, adapted_dict)
+reg_ex.run_analysis(output_folder,adapted_labels,query_species,run_name)
 ##########################################################################
 ## UNVOLLSTÄNDIG: Filtern einer Bed-Datei anhand einer (oder mehrere) anderen, hier ENCODE
 ## input: output_names, array of file paths .append(reg_ex.find_bed_candidates(bed_file_path, bed_file_name, scaffold, start, end, output_dir))
