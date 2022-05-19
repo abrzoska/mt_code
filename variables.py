@@ -1,0 +1,5 @@
+cis_reg_file = "/home/Timo/encode9_trimmed.bed"
+gene_file = "/home/Timo/mart_export2.txt"
+indel_file_name = "/moreAddSpace/tlin/all_chromosomes_0.bed"
+cis_reg_indel_folder = "/moreAddSpace/tlin/analysis/"
+gene_input_file = "/home/Timo/spalax_data/Cross_all_final_200421.xlsx"
