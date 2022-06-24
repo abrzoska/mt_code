@@ -22,7 +22,7 @@ result = [get_promoter(row[0], row[1], row[2], row[3], row[4]) for row in
               genes['Chromosome/scaffold name'])]
 genes = pd.DataFrame(result, columns=["gene_id", "strand", "prom_start", "prom_end", "chr"])
 genes["chr"] = genes["chr"].apply(lambda x: "chr" + str(x))
-genes.to_csv("../gene_promoters.tsv", sep='\t')
+genes.to_csv(gene_promoter_file, sep='\t')
 
 cis_regs = pd.read_csv(cis_reg_file, delimiter='\t', names=["chr", "start", "end", "element_id", "rgb"])
 df = cis_regs.groupby(by="chr")
@@ -38,5 +38,5 @@ for k, gb in genes:
         for gene_id, cis_associated in cis_regs:
             gene_to_cis_reg[gene_id] = cis_associated
 
-with open('gene_to_cis_reg.pkl', 'wb+') as f:
+with open(gene_to_cis_reg_dic, 'wb+') as f:
     pickle.dump(gene_to_cis_reg, f)

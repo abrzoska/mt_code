@@ -29,7 +29,7 @@ cis_regs = pd.read_csv(cis_reg_file, delimiter='\t', names=["chr", "start", "end
 df = cis_regs.groupby(by="chr")
 
 def determine_cis_regs_genes(gene_file):
-    with open('gene_to_cis_reg.pkl', 'rb') as f:
+    with open(gene_to_cis_reg_dic, 'rb') as f:
         gene_to_cis_reg = pickle.load(f)
     df = pd.read_excel(gene_file, index_col=None)
     target_genes = df["GeneID_Mouse"]
@@ -48,16 +48,16 @@ def summarize_cis_regs(genes_to_cis_reg, out_folder):
             merged_dfs = df
             first = False
         else:
-            merged_dfs = pd.merge(merged_dfs, df, how='outer')
-    with open("/home/Timo/pickles/merged_dfs", 'wb') as handle:
+            merged_dfs = pd.merge(merged_dfs, df, how= 'outer')
+    with open(merged_df_pickle, 'wb') as handle:
         pickle.dump(merged_dfs, handle)
-    with open("/home/Timo/pickles/genes_to_cis_reg", 'wb') as handle:
+    with open(cis_reg_pickle, 'wb') as handle:
         pickle.dump(genes_to_cis_reg, handle)
     merged_dfs["cis_reg_id"] = merged_dfs["cis_reg_id"].str.strip("'")
     for gene in genes_to_cis_reg.keys():
         sum_lines = merged_dfs[merged_dfs["cis_reg_id"].isin(list_util.flatten_list(genes_to_cis_reg[gene].tolist()))].sum()
         result.append([gene] + sum_lines.to_list()[1:])
-    with open("/home/Timo/pickles/result", 'wb') as handle:
+    with open(result_pickle, 'wb') as handle:
         pickle.dump(result, handle)
     return pd.DataFrame(result, columns=analysis_header)
 
@@ -121,18 +121,19 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group):
                      indel_non_adapted_included_count_del, indel_non_adapted_included_count_in] + list(adapted_species_dicts.values())))) + "\n"
 
 
-def run_analysis(folder, cis_regs_groups):
+def run_analysis(result_folder, indel_folder, cis_regs_groups):
     columns = ["Chromosome", "Start", "End", "Name", "Score", "Strand,", "ThickStart", "ThickEnd", "ItemRGB"]
+    #TODO: parralize this part with pythonmpi
     for key, cis_reg_group in cis_regs_groups:
         if key in indel_groups:
-            indel_file_name = f"{folder}/{key}_indels.bed"
+            indel_file_name = f"{indel_folder}/{key}_indels.bed"
             indels = pd.read_csv(indel_file_name, sep="\t", skiprows=0, header=None, names=columns)
             indels = indels.drop_duplicates(subset=['Name'])
             indels["Batch"] = indels["Name"].str.split(".")
             indels["Batch"] = indels["Batch"].apply(lambda x: x[-1] if len(x) > 0 else 0)
             stats = [get_and_analyze_indels(cis_reg[0], cis_reg[1], cis_reg[2], indels) for cis_reg in zip(cis_reg_group["start"],
                                                                     cis_reg_group["end"], cis_reg_group["element_id"])]
-            analysis_file = open(f"{folder}/{key}_analysis.csv", "w")
+            analysis_file = open(f"{result_folder}/{key}_analysis.csv", "w")
             analysis_file.write(analysis_header + "\n")
             analysis_file.writelines(stats)
             analysis_file.close()
@@ -141,8 +142,8 @@ def run_analysis(folder, cis_regs_groups):
 
 
 def main():
-    #run_analysis("/moreAddSpace/tlin", df)
+    run_analysis(cis_reg_indel_folder, indel_folder, df)
     genes_to_cis_reg = determine_cis_regs_genes(gene_input_file)
-    summarize_cis_regs(genes_to_cis_reg, cis_reg_indel_folder).to_csv("/moreAddSpace/tlin/results/genes_csv")
+    summarize_cis_regs(genes_to_cis_reg, cis_reg_indel_folder).to_csv(gene_result_csv)
 
 main()
