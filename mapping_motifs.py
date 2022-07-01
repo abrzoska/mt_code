@@ -1,6 +1,6 @@
 import pickle
 import pandas as pd
-from variables import *
+from file_parameters import *
 from list_util import *
 
 

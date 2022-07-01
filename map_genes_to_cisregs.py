@@ -2,31 +2,13 @@ import pandas as pd
 import pickle
 import os
 import list_util
+from file_parameters import *
 from variables import *
-
-adapted = ["micOch1","criGri1","mesAur1","HLcasCan1","hetGla2","HLfukDam1","HLmarMar1","triMan1","chrAsi1","ornAna2","vicPac2","HLturTru3","HLorcOrc1","HLdelLeu1","lipVex1","phyCat1","balAcu1","HLbalMys1","bosMut1","panHod1","HLenhLut1","odoRosDiv1","lepWed1","neoSch1","conCri1"]
-adapted_label = "hx"
-adapted2 = ["hg38","pantro5","gorgor5","panpan2","ponabe2","hlcascan1","hetgla2","hlfukdam1","loxafr3","hlturtru3","hlorcorc1","hldelleu1","lipvex1","phycat1","balacu1","hlbalmys1","hlrhisin1","hlhiparm1","eptfus1","myodav1","myobra1","myoluc2","hlminnat1","hldesrot1"]
-adapted_label2 = "ll"
-adapted_dict = {
-  adapted_label: adapted,
-  adapted_label2: adapted2,
-}
-adapted_labels = list(adapted_dict.keys())
-
-upstream_region = 50000
-#Todo Adjust these variables
-query_species = "nanGal1"
-# useful cut command cut -d'    ' -f-5,8
-# filter only for target genes
-indel_groups =['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10', 'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19', 'chrX', 'chrY']
-
-
-#analysis_header = ",".join(["cis_reg_id", "query_species_only_count_del", "query_species_only_count_in", "indel_non_adapted_included_count_del", "indel_non_adapted_included_count_in"] + [item for sublist in [[f"{i}_del", f"{i}_in"] for i in adapted_labels] for item in sublist])
-analysis_header = ["cis_reg_id", "query_species_only_count_del", "query_species_only_count_in", "indel_non_adapted_included_count_del", "indel_non_adapted_included_count_in", "hx", "ll"]
+from memory_profiler import profile
 
 cis_regs = pd.read_csv(cis_reg_file, delimiter='\t', names=["chr", "start", "end", "element_id", "rgb"])
 df = cis_regs.groupby(by="chr")
+
 
 def determine_cis_regs_genes(gene_file):
     with open(gene_to_cis_reg_dic, 'rb') as f:
@@ -117,7 +99,7 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group):
                             adapted_species_dicts[f"{adapted_label}_del"] += 1
                         else:
                             adapted_species_dicts[f"{adapted_label}_in"] += 1
-    return ",".join(list(map(lambda x: str(x) for x in [cis_reg_id, query_species_only_count_del, query_species_only_count_in,
+    return ",".join(list(map(lambda x: str(x), [cis_reg_id, query_species_only_count_del, query_species_only_count_in,
                      indel_non_adapted_included_count_del, indel_non_adapted_included_count_in] + list(adapted_species_dicts.values())))) + "\n"
 
 
@@ -126,24 +108,23 @@ def run_analysis(result_folder, indel_folder, cis_regs_groups):
     #TODO: parralize this part with pythonmpi
     for key, cis_reg_group in cis_regs_groups:
         if key in indel_groups:
-            indel_file_name = f"{indel_folder}/{key}_indels.bed"
+            indel_file_name = f"{indel_folder}{key}_indels.bed"
             indels = pd.read_csv(indel_file_name, sep="\t", skiprows=0, header=None, names=columns)
             indels = indels.drop_duplicates(subset=['Name'])
             indels["Batch"] = indels["Name"].str.split(".")
             indels["Batch"] = indels["Batch"].apply(lambda x: x[-1] if len(x) > 0 else 0)
             stats = [get_and_analyze_indels(cis_reg[0], cis_reg[1], cis_reg[2], indels) for cis_reg in zip(cis_reg_group["start"],
                                                                     cis_reg_group["end"], cis_reg_group["element_id"])]
-            analysis_file = open(f"{result_folder}/{key}_analysis.csv", "w")
-            analysis_file.write(analysis_header + "\n")
+            analysis_file = open(f"{result_folder}{key}_analysis.csv", "w")
+            analysis_file.write(",".join(analysis_header) + "\n")
             analysis_file.writelines(stats)
             analysis_file.close()
         else:
             print("Key not found: " + key)
 
 
+@profile
 def main():
     run_analysis(cis_reg_indel_folder, indel_folder, df)
     genes_to_cis_reg = determine_cis_regs_genes(gene_input_file)
     summarize_cis_regs(genes_to_cis_reg, cis_reg_indel_folder).to_csv(gene_result_csv)
-
-main()

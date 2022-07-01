@@ -7,9 +7,11 @@ import re
 import subprocess
 from difflib import SequenceMatcher
 from time import perf_counter
+from memory_profiler import profile
+from joblib import Parallel, delayed
+import multiprocessing
+
 class RegionExtractor:
-    MIN_INDEL_SIZE = 4
-    TMP_FOLDER = "/../tmp"
     #define an overlap to feather below case
     # A-----A
     # -------    
@@ -17,11 +19,14 @@ class RegionExtractor:
     INSERT_GAP_TOLERANCE = 0.2
     GAP_TOLERANCE = 0.02
     NON_GAP_TOLERANCE = 0.9
-    def __init__(self,run_name):
+    def __init__(self, run_name, folder, min_indel_size):
         self.helper = h.Helper()
         name_log = "RE_{0}.log".format(run_name)
         logging.basicConfig(filename=name_log, level=logging.DEBUG)
         logging.info("RegionExtractor instantiated")
+        self.TMP_FOLDER = folder + "tmp"
+        self.MIN_INDEL_SIZE = min_indel_size
+
     ##   find candidates within range for bfile 
     def find_bed_candidates(self, bfile, bfile_name, scaffold, start, end, output_dir):
         gr = self.helper.read_bedfile(bfile)
@@ -35,22 +40,24 @@ class RegionExtractor:
     def write_bed_cand_to_output(self, cand, path):
         with open(path, 'w') as f:            
             candAsString = cand.to_string(header = True, index = False)
-            f.write(candAsString)  
+            f.write(candAsString)
+
     ##   puts out a bed and a maf (query and target species only) that only  
     ##   include the indels contained in the maf
     ##   TODO indicate in-group
-    def find_indels_for_query_from_maf(self, maf, target, query, in_group, maf_out, bed_out, b_header,adapted_dict, batch=10000):
+    ## TODO: Parralize: cut bed into multiple blocks beforehand
+    @profile
+    def find_indels_for_query_from_maf(self, maf, target, query, in_group, bed_out, adapted_dict, batch=10000):
         b_out = open(f"{bed_out}_0.bed", "w")
         del_number = 1
         in_number = 1        
         adapted_species = adapted_dict.values()
-        print(adapted_species)
         target_line = ""
         query_line = ""
         species_lines = []
         run = 0
         batch_number = 0
-        with open(maf, "r")as mf:
+        with open(maf, "r") as mf:
             for line in mf:
                 if line.startswith("s"):
                     species = self.get_species_from_maf_line(line)
@@ -59,20 +66,16 @@ class RegionExtractor:
                             query_line = line    
                         elif species == target:
                             target_line = line   
-                            target_species = self.get_species_from_maf_line(line)
                             species_lines.append(target_line)
                         else:
                             species_lines.append(line)
-                    else:
-                        header = header + line             
-                ## block is over.          
+                ## block is over.
                 if line == "\n":
                     if run == batch:
                         run = 0
                         batch_number += 1
                         b_out.close()
                         b_out = open(f"{bed_out}_{batch_number}.bed", "w")
-                    run += 0
                     if len(query_line) > 0 and len(target_line) > 0 and self.is_indel(target_line, query_line):
                     ##If both lines are filled (= the block contains the query species), proceed                 
                     ##if the block contains query species and query species contains indel                        
@@ -185,6 +188,7 @@ class RegionExtractor:
         color = self.get_color(indel, is_adapted)
         return f'{scaffold}\t{start}\t{end}\t{name}\t0\t{strand}\t{start}\t{end}\t{color}\n'
     ##run analysis for folder of bed files (output to same folder)
+    @profile
     def run_analysis(self, folder, adapted_labels, query_species, run_name):
     ##iterate over files in folder     
         list_of_final_elements = []
@@ -195,8 +199,7 @@ class RegionExtractor:
         ##adapted labels
         stats = []
         for filename in os.listdir(folder):
-            analysis_output_file = f"{folder}/{filename}_analysis.csv"
-            #print(run_name +": "+filename)        
+            analysis_output_file = f"{folder}{filename}_analysis.csv"
             f = os.path.join(folder, filename)
             query_species_only_names = []
             query_species_only_count = 0
@@ -209,24 +212,17 @@ class RegionExtractor:
                 df = pd.read_csv(f, sep="\t", skiprows=1, header=None, names=columns)
                 df = df.drop_duplicates(subset=['Name'])
                 ##analysis
-                max_number = list(df.tail(1)['Name'])[0].split(".")[-1]
-                #names_list = df['Name'].tolist()
-                #numbers = [int(i.split(".")[-1]) for i in names_list]
+                max_number = int(list(df.tail(1)['Name'])[0].split(".")[-1])
                 if max_number > 1:
-                    for i in range(1, max(max_number)):
-                        #print(" .... "+str(i))
+                    for i in range(1, max_number):
                         line_ending_in = "."+str(i)
-                        #Todo consider This could be slow, maybe a group is faster
                         lines_with_this_end_number = df[df.Name.str.endswith(line_ending_in)]
-                        #print(lines_with_this_end_number.head)
-                        ## 1) InDel ist NUR in Spalax, sonst keiner Spezies
+
                         if len(lines_with_this_end_number) == 1:
-                            #print("arg: "+arg)
                             only_query_species_with_this_end_number = lines_with_this_end_number.iloc[0]
                             if query_species in only_query_species_with_this_end_number.Name:
-                                #print(only_query_species_with_this_end_number.Name)
                                 query_species_only_names.append(only_query_species_with_this_end_number.Name)
-                                query_species_only_count = query_species_only_count +1
+                                query_species_only_count = query_species_only_count + 1
                         ##InDel ist in Spalax und ... 
                         else:                            
                             names_list = lines_with_this_end_number['Name'].tolist()
@@ -260,7 +256,7 @@ class RegionExtractor:
                 print(f"Runtime total: {perf_counter() - gene_line_start_counter}")
                 #Todo clarify: is it really necessary to have the analysis in bed format?
                 #self.convert_csv_to_bed(headerline, analysis_output_file_name,analysis_output_file_name_bed)
-        analysis_file = open(folder + "/" + run_name + "_analysis.csv", "w")
+        analysis_file = open(folder + run_name + "_analysis.csv", "w")
         analysis_file.write(header + "\n")
         analysis_file.writelines(stats)
         analysis_file.close()
@@ -361,21 +357,6 @@ class RegionExtractor:
         else:
             print("\tbed file {0} exists.".format(bed))
             logging.info("\tbed file {0} exists.".format(bed))
-        if False:
-            if not Path(maf_out).is_file():
-                print("\tStarting mafsInRegion .. {0}".format(maf_out))
-                logging.info("\tStarting mafsInRegion .. {0}".format(maf_out))
-                start_counter = perf_counter()
-                subprocess.call(['mafsInRegion', bed, maf_out, maf_in])
-                stop_counter = perf_counter()
-                print("\tFinished mafsInRegion.")
-                logging.info("\tFinished mafsInRegion.")
-                time = stop_counter-start_counter
-                print('Elapsed time in seconds:", %.4f' % time)
-                logging.info('Elapsed time: %.4f s' % time)
-            else:
-                print("\tmaf file {0} exists.".format(maf_out))
-                logging.info("\tmaf file {0} exists.".format(maf_out))
         indel_start_counter = perf_counter()            
         self.find_indels_for_query_from_maf(maf_out,target_species,query_species, in_group, m_out, b_out, b_header,adapted_dict)
         indel_stop_counter = perf_counter()            
