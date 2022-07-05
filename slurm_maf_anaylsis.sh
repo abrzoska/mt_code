@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH -c 8
-#SBATCH --mem=70GB
-#SBATCH -t 48:00:00
+#SBATCH -c 32
+#SBATCH --mem=96GB
+#SBATCH -t 24:00:00
 #SBATCH -p parallel
 #SBATCH -J maf_mapper_indel3
 #SBATCH -o mapper_script.log

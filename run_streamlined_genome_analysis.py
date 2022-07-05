@@ -28,17 +28,12 @@ output_folder = intermediary_folder
 try:
     indel_length = int(sys.argv[1])
 except:
-    raise "Error argument needs to be integer"
+    raise "Error: argument for indel size needs to be integer"
 
 
 reg_ex = rex.RegionExtractor(run_name, intermediary_folder, indel_length)
-reg_ex.find_indels_for_query_from_maf(input_maf, target_species, query_species, in_group, bed_out, adapted_dict, 10000)
+reg_ex.loop_find_indels_for_query_from_maf(number_of_maf_parts, input_maf_part, target_species, query_species, in_group, indel_file, adapted_dict, number_of_cores)
 print("finished step 1")
-subprocess.run(["bash", splitter_script, indel_file_name, indel_folder])
-print("finished step 2")
-reg_ex.run_analysis(output_folder, adapted_labels, query_species, run_name)
-print("finished step 3")
-mapping_genes.map_genes_to_cis_regs()
-print("finished step 4")
+#mapping_genes.map_genes_to_cis_regs()
 map_genes_to_cisregs.main()
-print("finished step 5")
+print("finished step 4")

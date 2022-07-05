@@ -5,9 +5,8 @@ import list_util
 from file_parameters import *
 from variables import *
 from memory_profiler import profile
+from joblib import Parallel, delayed
 
-cis_regs = pd.read_csv(cis_reg_file, delimiter='\t', names=["chr", "start", "end", "element_id", "rgb"])
-df = cis_regs.groupby(by="chr")
 
 
 def determine_cis_regs_genes(gene_file):
@@ -30,7 +29,7 @@ def summarize_cis_regs(genes_to_cis_reg, out_folder):
             merged_dfs = df
             first = False
         else:
-            merged_dfs = pd.merge(merged_dfs, df, how= 'outer')
+            merged_dfs = pd.merge(merged_dfs, df, how='outer')
     with open(merged_df_pickle, 'wb') as handle:
         pickle.dump(merged_dfs, handle)
     with open(cis_reg_pickle, 'wb') as handle:
@@ -102,29 +101,37 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group):
     return ",".join(list(map(lambda x: str(x), [cis_reg_id, query_species_only_count_del, query_species_only_count_in,
                      indel_non_adapted_included_count_del, indel_non_adapted_included_count_in] + list(adapted_species_dicts.values())))) + "\n"
 
-
-def run_analysis(result_folder, indel_folder, cis_regs_groups):
+def run_analysis(result_folder, indel_file):
     columns = ["Chromosome", "Start", "End", "Name", "Score", "Strand,", "ThickStart", "ThickEnd", "ItemRGB"]
-    #TODO: parralize this part with pythonmpi
-    for key, cis_reg_group in cis_regs_groups:
-        if key in indel_groups:
-            indel_file_name = f"{indel_folder}{key}_indels.bed"
-            indels = pd.read_csv(indel_file_name, sep="\t", skiprows=0, header=None, names=columns)
-            indels = indels.drop_duplicates(subset=['Name'])
-            indels["Batch"] = indels["Name"].str.split(".")
-            indels["Batch"] = indels["Batch"].apply(lambda x: x[-1] if len(x) > 0 else 0)
-            stats = [get_and_analyze_indels(cis_reg[0], cis_reg[1], cis_reg[2], indels) for cis_reg in zip(cis_reg_group["start"],
-                                                                    cis_reg_group["end"], cis_reg_group["element_id"])]
-            analysis_file = open(f"{result_folder}{key}_analysis.csv", "w")
-            analysis_file.write(",".join(analysis_header) + "\n")
-            analysis_file.writelines(stats)
-            analysis_file.close()
+    cis_regs_groups = pd.read_csv(cis_reg_file, delimiter='\t', names=["chr", "start", "end", "element_id", "rgb"])
+    cis_regs_groups = cis_regs_groups.groupby("chr")
+    indels = pd.read_csv(indel_file, sep="\t", skiprows=0, header=None, names=columns)
+    indels = indels.drop_duplicates(subset=['Name'])
+    indels["Batch"] = indels["Name"].str.split(".")
+    indels["Batch"] = indels["Batch"].apply(lambda x: x[-1] if len(x) > 0 else 0)
+    indels = indels.groupby("Chromosome")
+    all_stats = []
+    for key, indel_grouup in indels:
+        if key in cis_regs_groups.groups.keys():
+            cis_reg_group = cis_regs_groups.get_group(key)
+            stats = [get_and_analyze_indels(cis_reg[0], cis_reg[1], cis_reg[2], indel_grouup) for cis_reg in
+                     zip(cis_reg_group["start"], cis_reg_group["end"], cis_reg_group["element_id"])]
+            all_stats += stats
         else:
-            print("Key not found: " + key)
+            print(f"Key not found: {key}")
+    result_name = indel_file.split("/")[-1].replace(".bed", "_analysis.csv")
+    analysis_file = open(f"{result_folder}{result_name}", "w")
+    analysis_file.write(",".join(analysis_header) + "\n")
+    analysis_file.writelines(all_stats)
+    analysis_file.close()
+
+def run_parrallel_analysis(result_folder, indel_file):
+    #TODO: maybe i need to laod the cis_reg_groups multiple times cause of threading
+    Parallel(n_jobs=number_of_cores)(delayed(run_analysis(result_folder, indel_file.replace("NUMBER", str(i)))) for i in range(number_of_maf_parts))
 
 
 @profile
 def main():
-    run_analysis(cis_reg_indel_folder, indel_folder, df)
+    run_parrallel_analysis(cis_reg_indel_folder, indel_file)
     genes_to_cis_reg = determine_cis_regs_genes(gene_input_file)
     summarize_cis_regs(genes_to_cis_reg, cis_reg_indel_folder).to_csv(gene_result_csv)

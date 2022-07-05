@@ -42,55 +42,50 @@ class RegionExtractor:
             candAsString = cand.to_string(header = True, index = False)
             f.write(candAsString)
 
-    ##   puts out a bed and a maf (query and target species only) that only  
+    ##   puts out a bed and a maf (query and target species only) that only
     ##   include the indels contained in the maf
     ##   TODO indicate in-group
     ## TODO: Parralize: cut bed into multiple blocks beforehand
     @profile
-    def find_indels_for_query_from_maf(self, maf, target, query, in_group, bed_out, adapted_dict, batch=10000):
-        b_out = open(f"{bed_out}_0.bed", "w")
+    def find_indels_for_query_from_maf(self, maf, target, query, in_group, bed_out, adapted_dict):
+        b_out = open(bed_out, "w")
+        print(bed_out)
+        print(maf)
         del_number = 1
-        in_number = 1        
+        in_number = 1
         adapted_species = adapted_dict.values()
         target_line = ""
         query_line = ""
         species_lines = []
-        run = 0
-        batch_number = 0
         with open(maf, "r") as mf:
             for line in mf:
                 if line.startswith("s"):
                     species = self.get_species_from_maf_line(line)
-                    if species != -1: 
+                    if species != -1:
                         if species == query:
-                            query_line = line    
+                            query_line = line
                         elif species == target:
-                            target_line = line   
+                            target_line = line
                             species_lines.append(target_line)
                         else:
                             species_lines.append(line)
                 ## block is over.
                 if line == "\n":
-                    if run == batch:
-                        run = 0
-                        batch_number += 1
-                        b_out.close()
-                        b_out = open(f"{bed_out}_{batch_number}.bed", "w")
                     if len(query_line) > 0 and len(target_line) > 0 and self.is_indel(target_line, query_line):
-                    ##If both lines are filled (= the block contains the query species), proceed                 
-                    ##if the block contains query species and query species contains indel                        
+                    ##If both lines are filled (= the block contains the query species), proceed
+                    ##if the block contains query species and query species contains indel
                         query_seq = self.get_sequence_from_maf_line(query_line)
-                        target_seq = self.get_sequence_from_maf_line(target_line)                    
+                        target_seq = self.get_sequence_from_maf_line(target_line)
                         if(query_seq!=-1 and target_seq !=-1):
                             ##add in target line -> NO presence is implicit.
                             #########################
                             ##        GAPS          #
                             ##      IN MOUSE        #
-                            #########################     
+                            #########################
                             target_gaps = self.get_gap_locations(target_seq)
                             for i in target_gaps:
                                 gapsize = abs(i[0]-i[1])
-                                if gapsize > self.MIN_INDEL_SIZE:    
+                                if gapsize > self.MIN_INDEL_SIZE:
                                     query_indel = query_seq[i[0]:i[1]]
                                     ##query is gap
                                     if self.is_mostly_gaps(query_indel):
@@ -127,7 +122,7 @@ class RegionExtractor:
                             target_non_gaps = self.get_non_gap_locations(target_seq)
                             for i in target_non_gaps:
                                 gapsize = abs(i[0]-i[1])
-                                if gapsize > self.MIN_INDEL_SIZE:    
+                                if gapsize > self.MIN_INDEL_SIZE:
                                     query_indel = query_seq[i[0]:i[1]]
                                     ##both target and query are non gaps
                                     if self.is_mostly_non_gaps(query_indel):
@@ -135,7 +130,7 @@ class RegionExtractor:
                                             current_species = self.get_species_from_maf_line(line)
                                             if current_species in in_group and not current_species in adapted_species:
                                                 continue
-                                            else:       
+                                            else:
                                                 #print("mouse non gaps, spalax non gaps")
                                                 seq = self.get_sequence_from_maf_line(line)
                                                 in_or_out = "in" if current_species in in_group else "out"
@@ -147,24 +142,28 @@ class RegionExtractor:
                                         current_species = self.get_species_from_maf_line(line)
                                         if current_species in in_group and not current_species in adapted_species:
                                             continue
-                                        else: 
+                                        else:
                                             seq = self.get_sequence_from_maf_line(line)
                                             in_or_out = "in" if current_species in in_group else "out"
                                             if seq!=-1 and self.is_mostly_non_gaps(seq[i[0]:i[1]]):
                                                 b_out.write(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, in_or_out, adapted_dict))
                                             elif seq!=-1 and self.is_mostly_gaps(seq[i[0]:i[1]]):
-                                                b_out.write(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, in_or_out, adapted_dict)) 
-                            
-                            ##TODO count numbers up only if present.    
+                                                b_out.write(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, in_or_out, adapted_dict))
+
+                            ##TODO count numbers up only if present.
                                 del_number = del_number + 1
                                 in_number = in_number + 1
                     ############################################################
                     target_line = ""
-                    query_line = ""  
+                    query_line = ""
                     species_lines = []
-        mf.close()    
-        #m_out.close()
-        b_out.close()   
+        mf.close()
+        b_out.close()
+
+    def loop_find_indels_for_query_from_maf(self, maf_pieces, maf_part, target, query, in_group, bed_out, adapted_dict, number_cores):
+        Parallel(n_jobs=number_cores)(delayed(self.find_indels_for_query_from_maf)(maf_part.replace("NUMBER", str(i)),
+            target, query, in_group, bed_out.replace("NUMBER", str(i)), adapted_dict) for i in range(maf_pieces))
+
     ##create bed line from detected INDEL for output incl in/out and adapted value
     def get_bed_line(self, target, line, indel, s, e, number, in_or_out_group, adapted_dict):
         scaffold = self.get_scaffold_from_maf_line(target)
@@ -232,30 +231,24 @@ class RegionExtractor:
                                 indel_non_adapted_included_names = indel_non_adapted_included_names + names_list
                                 indel_non_adapted_included_count = indel_non_adapted_included_count + len(names_list)
                             ## 3) InDel ist in Spalax UND einer Hypoxie adaptierten Spezies, egal ob Ingroup oder Outgroup
-                            ## 4) InDel ist in Spalax UND einer langlebigen Spezies , egal ob Ingroup oder   Outgroup   
-                                
-                                #print(adapted_labels)
+                            ## 4) InDel ist in Spalax UND einer langlebigen Spezies , egal ob Ingroup oder   Outgroup
                                 for adapted_label in adapted_labels:
                                     adapted_species = [s for s in names_list if "."+adapted_label+"." in s]
                                     if adapted_label in adapted_species_dicts.keys():
                                         adapted_species_dicts[adapted_label] = adapted_species_dicts[adapted_label] + adapted_species
                                     else:
                                         adapted_species_dicts[adapted_label] = adapted_species
-                ##filename,query_species_only_count,indel_non_adapted_included_count,hx,ll
                 print(f"Runtime for loop: {perf_counter() - gene_line_start_counter}")
                 list_of_final_elements = list_of_final_elements + query_species_only_names + indel_non_adapted_included_names
                 row = filename + "," +str(query_species_only_count)+ "," +str(indel_non_adapted_included_count)
                 for x in adapted_labels:
                     if x in adapted_species_dicts.keys():
                         list_of_final_elements = list_of_final_elements + adapted_species_dicts[x]
-                        row= row+","+str(len(adapted_species_dicts[x]))
-                #print(row)
+                        row = row+","+str(len(adapted_species_dicts[x]))
                 stats.append(row)
                 final_elements = df[df['Name'].isin(list_of_final_elements)]
                 final_elements.to_csv(analysis_output_file, index=False)
                 print(f"Runtime total: {perf_counter() - gene_line_start_counter}")
-                #Todo clarify: is it really necessary to have the analysis in bed format?
-                #self.convert_csv_to_bed(headerline, analysis_output_file_name,analysis_output_file_name_bed)
         analysis_file = open(folder + run_name + "_analysis.csv", "w")
         analysis_file.write(header + "\n")
         analysis_file.writelines(stats)
