@@ -7,3 +7,5 @@ tmp/*
 *.pdf
 __pycache__/*
 .idea/
+
+file_parameters.py
