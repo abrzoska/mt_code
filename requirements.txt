@@ -1,7 +1,8 @@
-pandas>=1.4
+pandas
 #those are needed on mogon
 Bio>=1.3
 pyranges>=0.0.110
 gffpandas
 memory-profiler
 joblib
+openpyxl

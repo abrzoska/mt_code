@@ -49,8 +49,6 @@ class RegionExtractor:
     @profile
     def find_indels_for_query_from_maf(self, maf, target, query, in_group, bed_out, adapted_dict):
         b_out = open(bed_out, "w")
-        print(bed_out)
-        print(maf)
         del_number = 1
         in_number = 1
         adapted_species = adapted_dict.values()
@@ -161,8 +159,8 @@ class RegionExtractor:
         b_out.close()
 
     def loop_find_indels_for_query_from_maf(self, maf_pieces, maf_part, target, query, in_group, bed_out, adapted_dict, number_cores):
-        Parallel(n_jobs=number_cores)(delayed(self.find_indels_for_query_from_maf)(maf_part.replace("NUMBER", str(i)),
-            target, query, in_group, bed_out.replace("NUMBER", str(i)), adapted_dict) for i in range(maf_pieces))
+        Parallel(n_jobs=number_cores)([delayed(self.find_indels_for_query_from_maf)(maf_part.replace("NUMBER", str(i)),
+            target, query, in_group, bed_out.replace("NUMBER", str(i)), adapted_dict) for i in range(maf_pieces)])
 
     ##create bed line from detected INDEL for output incl in/out and adapted value
     def get_bed_line(self, target, line, indel, s, e, number, in_or_out_group, adapted_dict):
@@ -177,9 +175,7 @@ class RegionExtractor:
             if species in adapted_dict[k]:
                 is_adapted = True
                 adapted_label = adapted_label + "." + k
-        strand = self.get_strand_from_maf_line(target)  
-        tseq = self.get_sequence_from_maf_line(target)
-        seq = self.get_sequence_from_maf_line(line)     
+        strand = self.get_strand_from_maf_line(target)
         if(is_adapted):
             name = species+"."+ in_or_out_group + adapted_label +"."+ indel + "."+ str(number)
         else: 

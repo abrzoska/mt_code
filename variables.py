@@ -23,4 +23,4 @@ indel_groups =['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', '
 
 
 #Computational:
-number_of_cores = 32 #120
+number_of_cores = 24 #120
