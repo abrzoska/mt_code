@@ -60,11 +60,11 @@ def get_count_of_cis_reg_per_gene(folder, gene_to_cis_reg):
 def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group):
     adapted_species_dicts = {}
     associated_indels = indel_group.loc[(indel_group['Start'] > cis_reg_start) & (indel_group['End'] < cis_reg_end)]
+
     associated_indels_group = associated_indels.groupby(by="Batch")
     query_species_only_count_del = 0
     query_species_only_count_in = 0
-    indel_non_adapted_included_count_del = 0
-    indel_non_adapted_included_count_in = 0
+    has_indels = False
     for adapted_label in adapted_labels:
             adapted_species_dicts[f"{adapted_label}_del"] = 0
             adapted_species_dicts[f"{adapted_label}_in"] = 0
@@ -74,6 +74,7 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group):
         if len(lines_with_this_end_number) == 1:
             only_query_species_with_this_end_number = lines_with_this_end_number.iloc[0]
             if query_species in only_query_species_with_this_end_number.Name:
+                has_indels = True
                 type = only_query_species_with_this_end_number.Name.split(".")[-2]
                 if type == "del":
                     query_species_only_count_del += 1
@@ -84,22 +85,20 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group):
         else:
             names_list = lines_with_this_end_number['Name'].tolist()
             if any(query_species in s for s in names_list):
-                ## 2) InDel ist in Spalax UND einer Spezies aus der Outgroup (egal ob long lived/adaptiert)
+                ## 2) InDel ist in Spalax UND einer Spezies aus der Outgroup (egal ob long lived/adaptiert) //REMOVED
                 type = names_list[0].split(".")[-2]
-                if type == "del":
-                    indel_non_adapted_included_count_del += 1
-                else:
-                    indel_non_adapted_included_count_in += 1
                 ## 3) InDel ist in Spalax UND einer Hypoxie adaptierten Spezies, egal ob Ingroup oder Outgroup
                 ## 4) InDel ist in Spalax UND einer langlebigen Spezies , egal ob Ingroup oder   Outgroup
                 for adapted_label in adapted_labels:
                     if adapted_label in adapted_species_dicts.keys():
+                        has_indels = True
                         if type == "del":
                             adapted_species_dicts[f"{adapted_label}_del"] += 1
                         else:
                             adapted_species_dicts[f"{adapted_label}_in"] += 1
-    return ",".join(list(map(lambda x: str(x), [cis_reg_id, query_species_only_count_del, query_species_only_count_in,
-                     indel_non_adapted_included_count_del, indel_non_adapted_included_count_in] + list(adapted_species_dicts.values())))) + "\n"
+    if not has_indels:
+        return ""
+    return ",".join(list(map(lambda x: str(x), [cis_reg_id, query_species_only_count_del, query_species_only_count_in] + list(adapted_species_dicts.values())))) + "\n"
 
 @profile
 def run_analysis(result_folder, indel_file):
@@ -117,6 +116,7 @@ def run_analysis(result_folder, indel_file):
             cis_reg_group = cis_regs_groups.get_group(key)
             stats = [get_and_analyze_indels(cis_reg[0], cis_reg[1], cis_reg[2], indel_group) for cis_reg in
                      zip(cis_reg_group["start"], cis_reg_group["end"], cis_reg_group["element_id"])]
+            stats = list(filter(lambda x: x != "", stats))
             all_stats += stats
         else:
             print(f"Key not found: {key}")
@@ -134,8 +134,6 @@ def run_parrallel_analysis(result_folder, indel_file):
 
 @profile
 def main():
-    #run_parrallel_analysis(cis_reg_indel_folder, indel_file)
+    run_parrallel_analysis(cis_reg_indel_folder, indel_file)
     genes_to_cis_reg = determine_cis_regs_genes(gene_input_file)
     summarize_cis_regs(genes_to_cis_reg, cis_reg_indel_folder).to_csv(gene_result_csv)
-
-main()

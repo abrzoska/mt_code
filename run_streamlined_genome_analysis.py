@@ -1,8 +1,6 @@
-import subprocess
-import sys
 from file_parameters import *
 from variables import *
-
+import sys
 import map_genes_to_cisregs
 import mapping_genes
 
@@ -29,7 +27,6 @@ try:
     indel_length = int(sys.argv[1])
 except:
     raise "Error: argument for indel size needs to be integer"
-
 
 reg_ex = rex.RegionExtractor(run_name, intermediary_folder, indel_length)
 reg_ex.loop_find_indels_for_query_from_maf(number_of_maf_parts, input_maf_part, target_species, query_species, in_group, indel_file, adapted_dict, number_of_cores)

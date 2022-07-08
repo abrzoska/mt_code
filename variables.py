@@ -1,3 +1,4 @@
+import list_util
 ##SPECIES DIE ANALYSIERT WERDEN SOLL
 query_species="nanGal1"
 ##NAHE VERWANDTE DER SPEZIES
@@ -18,7 +19,7 @@ adapted_labels = list(adapted_dict.keys())
 
 #Mapping specific:
 upstream_region = 50000
-analysis_header = ["cis_reg_id", "query_species_only_count_del", "query_species_only_count_in", "indel_non_adapted_included_count_del", "indel_non_adapted_included_count_in", "hx", "ll"]
+analysis_header = ["cis_reg_id", "query_species_only_count_del", "query_species_only_count_in"] + list_util.flatten_list([[f"{x}_del", f"{x}_in"] for x in adapted_labels])
 indel_groups =['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10', 'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19', 'chrX', 'chrY']
 
 
