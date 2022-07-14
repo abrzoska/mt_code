@@ -17,7 +17,7 @@ class RegionExtractor:
     # -------    
     GAP_SIMILARITY = 0.8
     INSERT_GAP_TOLERANCE = 0.2
-    GAP_TOLERANCE = 0.02
+    GAP_TOLERANCE = 0.8 #old value: 0.02
     NON_GAP_TOLERANCE = 0.9
     def __init__(self, run_name, folder, min_indel_size):
         self.helper = h.Helper()
@@ -55,6 +55,9 @@ class RegionExtractor:
         target_line = ""
         query_line = ""
         species_lines = []
+        batch_lines_max = 100000
+        batch_current_line = 0
+        batch_lines = []
         with open(maf, "r") as mf:
             for line in mf:
                 if line.startswith("s"):
@@ -64,6 +67,7 @@ class RegionExtractor:
                             query_line = line
                         elif species == target:
                             target_line = line
+                            #Todo: schauen ob man nächste zeile überhaupt braucht
                             species_lines.append(target_line)
                         else:
                             species_lines.append(line)
@@ -74,7 +78,7 @@ class RegionExtractor:
                     ##if the block contains query species and query species contains indel
                         query_seq = self.get_sequence_from_maf_line(query_line)
                         target_seq = self.get_sequence_from_maf_line(target_line)
-                        if(query_seq!=-1 and target_seq !=-1):
+                        if query_seq != -1 and target_seq != -1:
                             ##add in target line -> NO presence is implicit.
                             #########################
                             ##        GAPS          #
@@ -82,37 +86,39 @@ class RegionExtractor:
                             #########################
                             target_gaps = self.get_gap_locations(target_seq)
                             for i in target_gaps:
-                                gapsize = abs(i[0]-i[1])
-                                if gapsize > self.MIN_INDEL_SIZE:
-                                    query_indel = query_seq[i[0]:i[1]]
+                                query_indel = query_seq[i[0]:i[1]]
                                     ##query is gap
-                                    if self.is_mostly_gaps(query_indel):
-                                        for line in species_lines:
-                                            current_species = self.get_species_from_maf_line(line)
-                                            if current_species in in_group and not current_species in adapted_species:
-                                                continue
-                                            else:
-                                                #print("in: mouse gaps, spalax gaps")
-                                                seq = self.get_sequence_from_maf_line(line)
-                                                in_or_out = "in" if current_species in in_group else "out"
-                                                ##if the seq is also gaps, no additional info is gained
-                                                if seq!=-1 and self.is_mostly_non_gaps(seq[i[0]:i[1]]):
-                                                    b_out.write(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, in_or_out, adapted_dict))
-                                    elif self.is_mostly_non_gaps(query_indel):
-                                        for line in species_lines:
-                                            current_species = self.get_species_from_maf_line(line)
-                                            if current_species in in_group and not current_species in adapted_species:
-                                                continue
-                                            else:
-                                                #print("mouse gaps, spalax non gaps")
-                                                seq = self.get_sequence_from_maf_line(line)
-                                                in_or_out = "in" if current_species in in_group else "out"
-                                                ##if the seq is also non-gaps, but target is, there might be something
-                                                if seq!=-1 and self.is_mostly_non_gaps(seq[i[0]:i[1]]):
-                                                    b_out.write(self.get_bed_line(target_line, line, "in", i[0], i[1], in_number, in_or_out, adapted_dict))
-                                                ##insertion alert
-                                                elif seq!=-1 and self.is_mostly_gaps(seq[i[0]:i[1]]):
-                                                    b_out.write(self.get_bed_line(target_line, query_line, "in", i[0], i[1], in_number, in_or_out, adapted_dict))
+                                if self.is_mostly_gaps(query_indel):
+                                    #Todo: correct this double line
+                                    for line in species_lines:
+                                        current_species = self.get_species_from_maf_line(line)
+                                        if current_species in in_group and not current_species in adapted_species:
+                                            continue
+                                        else:
+                                            #print("in: mouse gaps, spalax gaps")
+                                            seq = self.get_sequence_from_maf_line(line)
+                                            in_or_out = "in" if current_species in in_group else "out"
+                                            ##if the seq is also gaps, no additional info is gained
+                                            if seq != -1 and self.is_mostly_non_gaps(seq[i[0]:i[1]]):
+                                                batch_lines.append(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, in_or_out, adapted_dict))
+                                                batch_current_line += 1
+                                elif self.is_mostly_non_gaps(query_indel):
+                                    #Todo: correct this double line
+                                    for line in species_lines:
+                                        current_species = self.get_species_from_maf_line(line)
+                                        if current_species in in_group and not current_species in adapted_species:
+                                            continue
+                                        else:
+                                            seq = self.get_sequence_from_maf_line(line)
+                                            in_or_out = "in" if current_species in in_group else "out"
+                                            ##if the seq is also non-gaps, but target is, there might be something
+                                            if seq != -1 and self.is_mostly_non_gaps(seq[i[0]:i[1]]):
+                                                batch_lines.append(self.get_bed_line(target_line, line, "in", i[0], i[1], in_number, in_or_out, adapted_dict))
+                                                batch_current_line += 1
+                                            ##insertion alert
+                                            elif seq != -1 and self.is_mostly_gaps(seq[i[0]:i[1]]):
+                                                batch_lines.append(self.get_bed_line(target_line, query_line, "in", i[0], i[1], in_number, in_or_out, adapted_dict))
+                                                batch_current_line += 1
                             #########################
                             ##      NON GAPS        #
                             ##     IN MOUSE         #
@@ -124,18 +130,18 @@ class RegionExtractor:
                                     query_indel = query_seq[i[0]:i[1]]
                                     ##both target and query are non gaps
                                     if self.is_mostly_non_gaps(query_indel):
+                                        # Todo: correct this double line
                                         for line in species_lines:
                                             current_species = self.get_species_from_maf_line(line)
                                             if current_species in in_group and not current_species in adapted_species:
                                                 continue
                                             else:
-                                                #print("mouse non gaps, spalax non gaps")
                                                 seq = self.get_sequence_from_maf_line(line)
                                                 in_or_out = "in" if current_species in in_group else "out"
                                                 ##if seq also non gaps, no additional info is gained
-                                                if seq!=-1 and self.is_mostly_gaps(seq[i[0]:i[1]]):
-                                                    ##target, line, indel, s, e, number, is_adapted, is_unique_to_query, in_or_out_group, adapted_label
-                                                    b_out.write(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, in_or_out, adapted_dict))
+                                                if seq != -1 and self.is_mostly_gaps(seq[i[0]:i[1]]):
+                                                    batch_lines.append(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, in_or_out, adapted_dict))
+                                                    batch_current_line += 1
                                     elif self.is_mostly_gaps(query_indel):
                                         current_species = self.get_species_from_maf_line(line)
                                         if current_species in in_group and not current_species in adapted_species:
@@ -143,14 +149,22 @@ class RegionExtractor:
                                         else:
                                             seq = self.get_sequence_from_maf_line(line)
                                             in_or_out = "in" if current_species in in_group else "out"
-                                            if seq!=-1 and self.is_mostly_non_gaps(seq[i[0]:i[1]]):
-                                                b_out.write(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, in_or_out, adapted_dict))
-                                            elif seq!=-1 and self.is_mostly_gaps(seq[i[0]:i[1]]):
-                                                b_out.write(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, in_or_out, adapted_dict))
+                                            if seq != -1 and self.is_mostly_non_gaps(seq[i[0]:i[1]]):
+                                                batch_lines.append(self.get_bed_line(target_line, query_line, "del", i[0], i[1], in_number, in_or_out, adapted_dict))
+                                                batch_current_line += 1
+                                            elif seq != -1 and self.is_mostly_gaps(seq[i[0]:i[1]]):
+                                                batch_lines.append(self.get_bed_line(target_line, line, "del", i[0], i[1], in_number, in_or_out, adapted_dict))
+                                                batch_current_line += 1
+
+
 
                             ##TODO count numbers up only if present.
                                 del_number = del_number + 1
                                 in_number = in_number + 1
+                        if batch_current_line >= batch_lines_max:
+                            b_out.writelines(batch_lines)
+                            batch_lines = []
+                            batch_current_line = 0
                     ############################################################
                     target_line = ""
                     query_line = ""
@@ -386,14 +400,15 @@ class RegionExtractor:
                         column_name = cand.columns
                         #cand['Notes'] = cand. + "_" + name
         query_file.close()          
-    ## GETTER    
+
     def get_gap_locations(self, seq):
         gap_locations = []
         matches = list(re.finditer('-+', seq))
         for i, gap in enumerate(matches, 1):
-            if(abs(gap.start() - gap.end())>self.MIN_INDEL_SIZE):
+            if abs(gap.start() - gap.end()) >= self.MIN_INDEL_SIZE:
                 gap_locations.append([gap.start(), gap.end()])
-        return gap_locations 
+        return gap_locations
+
     def get_non_gap_locations(self, seq):
         gap_locations = []
         matches = list(re.finditer('[ACGTacgt]+', seq))       
@@ -402,38 +417,25 @@ class RegionExtractor:
             if(abs(gap.start()- gap.end())>self.MIN_INDEL_SIZE):
                 gap_locations.append([gap.start(), gap.end()])            
         #print("seq: {0} -> matches {1}".format(seq,gap_locations))
-        return gap_locations         
+        return gap_locations
+
     def get_size(self, maf_line):
         pattern = re.compile("[0-9]")
         l = maf_line.split()
-        if(len(l) > 2 and pattern.match(l[3])):        
-            return int(l[3])            
+        if len(l) > 2 and pattern.match(l[3]):
+            return int(l[3])
+
     def get_color(self, indel, is_adapted):
-    # def get_color(self, indel, is_adapted, is_unique_to_query):
-    #delte
-    ##221,106,76 adapted
-    ##233,156,93 non adapted
-    ##224,188,103 unique
-    ## ->  (170, 224, 103 insert, 224, 158, 103 delete)
-    #insert
-    ##40,151,136 non adapted
-    ##37,67,80 adapted
-        # if is_unique_to_query:
-            # if indel == "in":
-                # return "170,224,103"
-            # return "224,158,103"
         if indel == "del":
             if is_adapted:
                 return "221,106,76"
-            else:
-                return "233,156,93"
+            return "233,156,93"
         elif indel == "in":
             if is_adapted:
                 return "40,151,136"
-            else:
-                return "37,67,80"           
-        else:
-            return "133,133,133"            
+            return "37,67,80"
+        return "133,133,133"
+
     def get_range_from_row(self,row):
         ar = row.split()
         if(len(ar)>2 and not ar[0].startswith("tr") and not ar[0].startswith("Chr")):
@@ -462,16 +464,16 @@ class RegionExtractor:
         outfile = open(out, "w")
         for s in list_species:
             outfile.write(s + "\n")
-        outfile.close()        
+        outfile.close()
     ##   returns the species name from a single line of a maffile
     ##   returns -1 if it is not a line containing a species     
     def get_species_from_maf_line(self,line):
         pattern = re.compile("[a-zA-Z0-9]*\.[a-zA-Z0-9]*")
         l = line.split()
-        if(len(l) > 1 and pattern.match(l[1])):        
+        if len(l) > 1 and pattern.match(l[1]):
             return l[1].split(".")[0]
-        else:
-            return -1       
+        return -1
+
     def get_strand_from_maf_line(self,line):
         pattern = re.compile("[+-]")
         l = line.split()
@@ -543,16 +545,20 @@ class RegionExtractor:
     ##    returns the bed version of a maf line        
     def is_indel(self, target, query):
         return self.get_size(target) != self.get_size(query)
-    def is_gaps_only(self, str):
+
+    #Todo: remove or improve this method: this is true as long as first position is "-"
+    def is_gaps_only(self, string):
         pattern = re.compile("-+")
-        if(not pattern.match(str)):
-                return False
-        return True 
+        if pattern.match(string):
+            return True
+        return False
+
     def has_no_gaps(self, str):
         pattern = re.compile('[ACGTacgt]+')
         if(not pattern.match(str)):
                 return False
-        return True 
+        return True
+
     def is_mostly_gaps(self, str):
         if self.is_gaps_only(str):
             return True
@@ -562,7 +568,8 @@ class RegionExtractor:
             #print("is_mostly_gaps FALSE? {0} ({1}) -> {2} vs {3}".format(str, no_of_gaps,perc, self.GAP_TOLERANCE))
             return False
         #print("is_mostly_gaps TRUE? {0} ({1}) -> {2} vs {3}".format(str, no_of_gaps,perc, self.GAP_TOLERANCE))
-        return True 
+        return True
+
     def is_mostly_non_gaps(self,str):
         if self.has_no_gaps(str):
             return True
