@@ -1,7 +1,7 @@
 from file_parameters import *
 
-MAX_BLOCKS = 144000
-#MAX_BLOCKS = 144
+#MAX_BLOCKS = 144000
+MAX_BLOCKS = 144
 batch_number = 0
 current_blocks = 0
 

@@ -9,7 +9,7 @@ from difflib import SequenceMatcher
 from time import perf_counter
 from memory_profiler import profile
 from joblib import Parallel, delayed
-import multiprocessing
+import functions as tools
 
 class RegionExtractor:
     #define an overlap to feather below case
@@ -35,17 +35,89 @@ class RegionExtractor:
         cand = gr[scaffold,start:end].as_df()
         output = self.get_output_name(bfile_name, scaffold, start, end, output_dir)
         self.write_bed_cand_to_output(cand, output)
-        return output        
-    ##   write results from dataframe to file    
+        return output
+    ##   write results from dataframe to file
     def write_bed_cand_to_output(self, cand, path):
-        with open(path, 'w') as f:            
+        with open(path, 'w') as f:
             candAsString = cand.to_string(header = True, index = False)
             f.write(candAsString)
+
+    def find_indels_from_maf(self, maf, target, query, bed_out, adapted_dict):
+        b_out = open(bed_out, "w")
+        species_lines = []
+        target_line = ""
+        query_line = ""
+        batch_lines_max = 100000
+        batch_current_line = 0
+        batch_lines = []
+        in_number = 0
+        with open(maf, "r") as mf:
+            for line in mf:
+                if line.startswith("s"):
+                    species = self.get_species_from_maf_line(line)
+                    if species != -1:
+                        if species == query:
+                            query_line = line
+                        elif species == target:
+                            target_line = line
+                        else:
+                            species_lines.append(line)
+                elif line == "\n":
+                    query_seq = tools.get_sequence_from_maf_line(query_line)
+                    target_seq = tools.get_sequence_from_maf_line(target_line)
+
+                    if target_seq != -1 and query_seq != -1:
+                        target_gaps = tools.get_gap_locations(target_seq)
+                        for target_gap in target_gaps:
+                            query_indel = query_seq[target_gap[0]:target_gap[1]]
+                            if tools.is_mostly_non_gaps(query_indel):
+                                scaffold, start, end, strand = tools.calculate_genomic_position(target_line, target_gap[0], target_gap[1], True)
+                                batch_lines.append(tools.get_bed_line(query_line, "in", in_number, adapted_dict, scaffold, start, end, strand))
+                                batch_current_line += 1
+                                for species_line in species_lines:
+                                    seq = tools.get_sequence_from_maf_line(species_line)
+                                    if seq != -1 and tools.is_mostly_non_gaps(seq[target_gap[0]:target_gap[1]]):
+                                        batch_lines.append(tools.get_bed_line(species_line, "in", in_number, adapted_dict, scaffold, start, end, strand))
+                                        batch_current_line += 1
+                                in_number += 1
+
+                        query_gaps = tools.get_gap_locations(query_seq)
+                        print(query_gaps)
+                        print(target_line)
+                        print(query_line)
+                        for query_gap in query_gaps:
+                            species_lines.append(target_line)
+                            target_indel = query_seq[query_gap[0]:query_gap[1]]
+                            if tools.is_mostly_non_gaps(target_indel):
+                                scaffold, start, end, strand = tools.calculate_genomic_position(target_line, query_gap[0], query_gap[1], False)
+                                batch_lines.append(tools.get_bed_line(query_line, "del", in_number, adapted_dict, scaffold, start, end, strand))
+                                #needs to be different, as this is insert= affects genomic position of differently
+                                batch_current_line += 1
+                                for species_line in species_lines:
+                                    seq = tools.get_sequence_from_maf_line(species_line)
+                                    if seq != -1 and tools.is_mostly_non_gaps(seq[query_gap[0]:query_gap[1]]):
+                                        batch_lines.append(tools.get_bed_line(species_line, "in", in_number, adapted_dict, scaffold, start, end, strand))
+                                        batch_current_line += 1
+
+                                    elif seq != -1 and tools.is_mostly_gaps(seq[query_gap[0]:query_gap[1]]):
+                                        batch_lines.append(tools.get_bed_line(species_line, "del", in_number, adapted_dict, scaffold, start, end, strand))
+                                        batch_current_line += 1
+                                in_number += 1
+                    target_line = ""
+                    query_line = ""
+                    species_lines = []
+                if batch_current_line >= batch_lines_max:
+                    b_out.writelines(batch_lines)
+                    batch_lines = []
+                    batch_current_line = 0
+
+        b_out.writelines(batch_lines)
+        mf.close()
+        b_out.close()
 
     ##   puts out a bed and a maf (query and target species only) that only
     ##   include the indels contained in the maf
     ##   TODO indicate in-group
-    ## TODO: Parralize: cut bed into multiple blocks beforehand
     @profile
     def find_indels_for_query_from_maf(self, maf, target, query, in_group, bed_out, adapted_dict):
         b_out = open(bed_out, "w")
@@ -169,6 +241,7 @@ class RegionExtractor:
                     target_line = ""
                     query_line = ""
                     species_lines = []
+        b_out.writelines(batch_lines)
         mf.close()
         b_out.close()
 
@@ -179,10 +252,9 @@ class RegionExtractor:
     ##create bed line from detected INDEL for output incl in/out and adapted value
     def get_bed_line(self, target, line, indel, s, e, number, in_or_out_group, adapted_dict):
         scaffold = self.get_scaffold_from_maf_line(target)
-        start = self.get_start_from_maf_line(target)
-        size = self.get_size_from_maf_line(target)
+        start = int(self.get_start_from_maf_line(target)) + s
         species = self.get_species_from_maf_line(line)
-        end = int(start)+int(size)
+        end = int(start) + e
         adapted_label = ""
         is_adapted = False
         for k in adapted_dict.keys():
@@ -192,7 +264,7 @@ class RegionExtractor:
         strand = self.get_strand_from_maf_line(target)
         if(is_adapted):
             name = species+"."+ in_or_out_group + adapted_label +"."+ indel + "."+ str(number)
-        else: 
+        else:
             name = species+"."+ in_or_out_group+"."+ indel + "."+ str(number)
         color = self.get_color(indel, is_adapted)
         return f'{scaffold}\t{start}\t{end}\t{name}\t0\t{strand}\t{start}\t{end}\t{color}\n'
@@ -217,7 +289,7 @@ class RegionExtractor:
             adapted_species_dicts = {}
             gene_line_start_counter = perf_counter()
             if os.path.isfile(f) and f.endswith(".bed") and not f.endswith("_analysis.bed"):
-                columns = ["Chromosome", "Start", "End", "Name", "Score", "Strand,", "ThickStart", "ThickEnd", "ItemRGB"] 
+                columns = ["Chromosome", "Start", "End", "Name", "Score", "Strand,", "ThickStart", "ThickEnd", "ItemRGB"]
                 df = pd.read_csv(f, sep="\t", skiprows=1, header=None, names=columns)
                 df = df.drop_duplicates(subset=['Name'])
                 ##analysis
@@ -232,11 +304,11 @@ class RegionExtractor:
                             if query_species in only_query_species_with_this_end_number.Name:
                                 query_species_only_names.append(only_query_species_with_this_end_number.Name)
                                 query_species_only_count = query_species_only_count + 1
-                        ##InDel ist in Spalax und ... 
-                        else:                            
+                        ##InDel ist in Spalax und ...
+                        else:
                             names_list = lines_with_this_end_number['Name'].tolist()
                             if any(query_species in s for s in names_list):# whatever
-                                ## 2) InDel ist in Spalax UND einer Spezies aus der Outgroup (egal ob long lived/adaptiert) 
+                                ## 2) InDel ist in Spalax UND einer Spezies aus der Outgroup (egal ob long lived/adaptiert)
                                 ##PUT ALL IN
                                 indel_non_adapted_included_names = indel_non_adapted_included_names + names_list
                                 indel_non_adapted_included_count = indel_non_adapted_included_count + len(names_list)
@@ -273,9 +345,9 @@ class RegionExtractor:
             lines = a_file.readlines()
             a_file.close()
             new_file = open(analysis_output_file_bed, "w")
-            new_file.write(headerline+"\n")      
+            new_file.write(headerline+"\n")
             for line in lines:
-                if not line.strip("\n").startswith("Chromosome"):        
+                if not line.strip("\n").startswith("Chromosome"):
                     ##this kills the rgb values -- workaround for now
                     #print("####")
                     #print(line)
@@ -283,7 +355,7 @@ class RegionExtractor:
                     if line.endswith('"'):
                         ##contains rgb
                         line_rgb = re.findall('"([^"]*)"', line)[0]
-                        line = ('\t'.join(line.split(",")[0:-3])) + '\t' + line_rgb + '\n'                        
+                        line = ('\t'.join(line.split(",")[0:-3])) + '\t' + line_rgb + '\n'
                         new_file.write(line)
                     else:
                         line = line.replace(',','\t')
@@ -294,8 +366,8 @@ class RegionExtractor:
     ##from maf and bed find indels within upstream region
     def start_create_bed_and_maf_for_list_of_genes(self, output_folder, gene_list, bio_mart_csv, upstream_region, input_maf, target_species, query_species, in_group, adapted_dict):
         Path(output_folder).mkdir(parents=True, exist_ok=True)
-        gene_file = open(gene_list, "r")        
-        df = pd.read_csv(bio_mart_csv) 
+        gene_file = open(gene_list, "r")
+        df = pd.read_csv(bio_mart_csv)
         for line in gene_file:
             gene_line_start_counter = perf_counter()
             line = line.strip()
@@ -315,7 +387,7 @@ class RegionExtractor:
                 if s.isnumeric():
                     scaffold = "chr{0}".format(s)
                 else:
-                    scaffold = s        
+                    scaffold = s
                 print("scaffold {0}".format(scaffold))
                 b_header = f'track name="Indels for {query_species} {line} ({scaffold}:{upstream_cutoff}-{latest_transcription_start})" itemRgb="On"\n'
                 [output_bed, output_maf] = self.get_output_files_name(line, output_folder)
@@ -324,7 +396,7 @@ class RegionExtractor:
                 print("...done")
             else:
                 #Todo log which genes did not make it
-                print("Gene {0} not found in BioMart file, skipping".format(line))   
+                print("Gene {0} not found in BioMart file, skipping".format(line))
             gene_line_stop_counter = perf_counter()
             time = gene_line_stop_counter-gene_line_start_counter
             print('Elapsed time in seconds:", %.4f' % time)
@@ -332,12 +404,12 @@ class RegionExtractor:
     def get_output_files_name(self, line, output_folder):
         name_bed = "{0}/{1}-indels.bed".format(output_folder,line)
         name_maf = "{0}/{1}-indels.maf".format(output_folder,line)
-        return [name_bed, name_maf]    
+        return [name_bed, name_maf]
     ##! if maf extract does not exist it will be created which can take multiple hours
     ## in case of unstable connection to server run via tmux (see start_genome_session.sh)
     def create_bed_and_maf_for_alignment(self, start, end, scaffold, maf_in, target_species, query_species, in_group, m_out, b_out, b_header, adapted_dict):
         ## check all files + log
-        complete_path = os.getcwd()+self.TMP_FOLDER 
+        complete_path = os.getcwd()+self.TMP_FOLDER
         print("\tLocation of tmp folder: {0}".format(complete_path))
         logging.info("\tLocation of tmp folder: {0}".format(complete_path))
         if not Path(complete_path).is_dir():
@@ -346,44 +418,44 @@ class RegionExtractor:
             logging.info("\tCreated Folder {0}.".format(self.TMP_FOLDER))
         else:
             print("\t tmp folder {0} exists.".format(complete_path))
-            logging.info("\ttmp folder {0} exists.".format(complete_path))            
+            logging.info("\ttmp folder {0} exists.".format(complete_path))
         ## create bed from start, end
         name = "{0}_{1}_{2}".format(scaffold,start,end)
         bed = complete_path+"/"+name+".bed"
         maf_out = complete_path+"/"+name+".maf"
-        if not Path(bed).is_file():   
-            print("\tWriting bed to file .. {0}".format(bed))            
-            logging.info("\tWriting bed to file .. {0}".format(bed))            
+        if not Path(bed).is_file():
+            print("\tWriting bed to file .. {0}".format(bed))
+            logging.info("\tWriting bed to file .. {0}".format(bed))
             with open(bed, 'a') as bedfile:
                 bedfile.write("{0}\t{1}\t{2}\t{3}".format(scaffold,start,end,name))
             bedfile.close()
         else:
             print("\tbed file {0} exists.".format(bed))
             logging.info("\tbed file {0} exists.".format(bed))
-        indel_start_counter = perf_counter()            
+        indel_start_counter = perf_counter()
         self.find_indels_for_query_from_maf(maf_out,target_species,query_species, in_group, m_out, b_out, b_header,adapted_dict)
-        indel_stop_counter = perf_counter()            
+        indel_stop_counter = perf_counter()
         time = indel_stop_counter-indel_start_counter
         #print("\tElapsed time in seconds: (find_indels_for_query_from_maf)", time.isoformat(timespec='seconds'))
         print('\tElapsed time: %.4f s' % time)
         logging.info('\tElapsed time: %.4f s' % time)
         print("\tMaf file containing Indels {0}".format(m_out))
         logging.info("\tMaf file containing Indels {0}".format(m_out))
-        print("\tBed file containing Indels {0}".format(b_out))    
-        logging.info("\tBed file containing Indels {0}".format(b_out))   
+        print("\tBed file containing Indels {0}".format(b_out))
+        logging.info("\tBed file containing Indels {0}".format(b_out))
     ##   given a query bed and a list of additions .bed files, 
-    ##   get a listing of which elements from the query .bed 
-    ##   have overlaps with elements from the target beds      
+    ##   get a listing of which elements from the query .bed
+    ##   have overlaps with elements from the target beds
     ##   track name=HbVar type=bedDetail description="HbVar custom track"
-    ##TODO 
+    ##TODO
     def filter_bed_with_overlap(self, query_bed, target_beds):
-        target_bed_files = []        
+        target_bed_files = []
         for file in target_beds:
             tmp_file_name =file+"-tmp"
             self.helper.cut_down_bed_file(file,tmp_file_name , 4)
             target_bed_files.append(self.helper.read_bedfile(tmp_file_name))
         print(len(target_bed_files))
-        query_file = open(query_bed, "r")          
+        query_file = open(query_bed, "r")
         for line in query_file:
             if(not line.startswith("tr") and not line.startswith("Chr")):
                 scaffold = self.get_scaffold_from_row(line)
@@ -393,13 +465,13 @@ class RegionExtractor:
                 if(scaffold != -1 and startEnd != -1 and name != -1):
                     start = startEnd[0]
                     end = startEnd[1]
-                    for file in target_bed_files: 
+                    for file in target_bed_files:
                         #print(file)
                         cand = file[scaffold,start:end].as_df()
                         print(cand)
                         column_name = cand.columns
                         #cand['Notes'] = cand. + "_" + name
-        query_file.close()          
+        query_file.close()
 
     def get_gap_locations(self, seq):
         gap_locations = []
@@ -411,11 +483,11 @@ class RegionExtractor:
 
     def get_non_gap_locations(self, seq):
         gap_locations = []
-        matches = list(re.finditer('[ACGTacgt]+', seq))       
+        matches = list(re.finditer('[ACGTacgt]+', seq))
         for i, gap in enumerate(matches, 1):
             #gap_locations.append([gap.start(),gap.end()])
             if(abs(gap.start()- gap.end())>self.MIN_INDEL_SIZE):
-                gap_locations.append([gap.start(), gap.end()])            
+                gap_locations.append([gap.start(), gap.end()])
         #print("seq: {0} -> matches {1}".format(seq,gap_locations))
         return gap_locations
 
@@ -445,15 +517,15 @@ class RegionExtractor:
         ar = row.split()
         if(len(ar)>0 and not ar[0].startswith("tr") and not ar[0].startswith("Chr")):
             return ar[0]
-        return -1    
+        return -1
     def get_name_from_row(self, row):
         ar = row.split()
         if(len(ar)>2 and not ar[0].startswith("tr") and not ar[0].startswith("Chr")):
             return ar[3]
-        return -1                          
+        return -1
     ##   returns a list of all species included in the alignment inside the maf 
-    ##   and writes them to the outfile 
-    def get_species_in_maf(self, maf, out):        
+    ##   and writes them to the outfile
+    def get_species_in_maf(self, maf, out):
         species = {}
         with open(maf, 'r') as rf:
             for line in rf:
@@ -466,7 +538,7 @@ class RegionExtractor:
             outfile.write(s + "\n")
         outfile.close()
     ##   returns the species name from a single line of a maffile
-    ##   returns -1 if it is not a line containing a species     
+    ##   returns -1 if it is not a line containing a species
     def get_species_from_maf_line(self,line):
         pattern = re.compile("[a-zA-Z0-9]*\.[a-zA-Z0-9]*")
         l = line.split()
@@ -478,51 +550,51 @@ class RegionExtractor:
         pattern = re.compile("[+-]")
         l = line.split()
         #print(l)
-        if(len(l) > 1 and pattern.match(l[4])):        
+        if(len(l) > 1 and pattern.match(l[4])):
             return l[4]
         else:
-            return -1   
+            return -1
     def get_sequence_from_maf_line(self,line):
         #print("OOOHH : ".format(line))
         pattern = re.compile("[a-zA-Z0-9]*")
         l = line.split()
-        if(len(l) > 1 and pattern.match(l[6])):   
+        if(len(l) > 1 and pattern.match(l[6])):
             return l[6]
         else:
             #print("AAAAH : ".format(line))
-            return -1                 
+            return -1
     def get_scaffold_from_maf_line(self,line):
         pattern = re.compile("[a-zA-Z0-9]*\.[a-zA-Z0-9]*")
         l = line.split()
-        if(len(l) > 1 and pattern.match(l[1])):        
+        if(len(l) > 1 and pattern.match(l[1])):
             return l[1].split(".")[1]
         else:
-            return -1       
+            return -1
     def get_start_from_maf_line(self,line):
         pattern = re.compile("[0-9]")
         l = line.split()
-        if(len(l) > 1 and pattern.match(l[2])):        
+        if(len(l) > 1 and pattern.match(l[2])):
             return l[2]
         else:
-            return -1                
+            return -1
     def get_size_from_maf_line(self,line):
         pattern = re.compile("[0-9]")
         l = line.split()
-        if(len(l) > 1 and pattern.match(l[3])):        
+        if(len(l) > 1 and pattern.match(l[3])):
             return l[3]
         else:
-            return -1   
+            return -1
     def get_similarity(self, a, b):
-        return SequenceMatcher(None, a, b).ratio()   
+        return SequenceMatcher(None, a, b).ratio()
     def is_insertion(self, query, seq):
         complete_gap = "-" * len(seq)
         a = self.get_similarity(seq, complete_gap) #needs to be mostly gap
-        b = self.get_similarity(query, complete_gap) #needs to be mostly non gap        
+        b = self.get_similarity(query, complete_gap) #needs to be mostly non gap
         #print("{0} \n {1}\n->\t {2}".format(query, seq, a))
         return a < self.GAP_SIMILARITY and b < self.INSERT_GAP_TOLERANCE
     def get_output_name(self, bfile_name, scaffold, exon_start, upstream_start, output_dir):
         output=output_dir+"/" + bfile_name + "_" + scaffold + "_" + repr(upstream_start) + "_" +  repr(exon_start)
-        return output +".bed"      
+        return output +".bed"
     ##### FILE TRANSFORMATIONS     
     ##    returns the maf containing only the species inside listfile
     def reduce_maf_via_list(self, listfile, maffile, reduced_maffile):
@@ -531,17 +603,17 @@ class RegionExtractor:
             for species in lf:
                 print(species)
                 species_reduced[species.strip()] = 1
-        lf.close()    
-        print(list(species_reduced.keys()))        
-        rmf = open(reduced_maffile, "w")                       
+        lf.close()
+        print(list(species_reduced.keys()))
+        rmf = open(reduced_maffile, "w")
         with open(maffile, "r")as mf:
             for line in mf:
-                l = self.get_species_from_maf_line(line)                
+                l = self.get_species_from_maf_line(line)
                 if l == -1 or l in species_reduced:
                     print(l)
                     rmf.write(line)
         mf.close()
-        rmf.close()    
+        rmf.close()
     ##    returns the bed version of a maf line        
     def is_indel(self, target, query):
         return self.get_size(target) != self.get_size(query)
@@ -576,8 +648,7 @@ class RegionExtractor:
         no_of_gaps = str.count('-')
         perc = (len(str)-no_of_gaps)/len(str)
         if perc < self.NON_GAP_TOLERANCE:
-            #print("is_mostly_non_gaps FALSE? {0} ({1}) -> {2} vs {3}".format(str, no_of_gaps,perc, self.NON_GAP_TOLERANCE))        
+            #print("is_mostly_non_gaps FALSE? {0} ({1}) -> {2} vs {3}".format(str, no_of_gaps,perc, self.NON_GAP_TOLERANCE))
             return False
         #print("is_mostly_non_gaps TRUE? {0} ({1}) -> {2} vs {3}".format(str, no_of_gaps,perc, self.NON_GAP_TOLERANCE))
         return True
-   
