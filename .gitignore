@@ -9,3 +9,4 @@ __pycache__/*
 .idea/
 
 file_parameters.py
+/test_file_parameters_local.py

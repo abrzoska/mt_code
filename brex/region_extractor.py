@@ -71,36 +71,41 @@ class RegionExtractor:
                         for target_gap in target_gaps:
                             query_indel = query_seq[target_gap[0]:target_gap[1]]
                             if tools.is_mostly_non_gaps(query_indel):
-                                scaffold, start, end, strand = tools.calculate_genomic_position(target_line, target_gap[0], target_gap[1], True)
-                                batch_lines.append(tools.get_bed_line(query_line, "in", in_number, adapted_dict, scaffold, start, end, strand))
+                                indel_length = target_gap[1] - target_gap[0]
+                                scaffold, start, end, strand, debug_start, debug_end = tools.calculate_genomic_position(target_line, target_gap[0], target_gap[1], True)
+                                batch_lines.append(tools.get_bed_line(query_line, "in", in_number, adapted_dict, scaffold, start, end, strand, indel_length, debug_start, debug_end))
                                 batch_current_line += 1
+                                print(target_gaps)
+                                print(target_line)
+                                print(query_line)
+                                print(tools.get_bed_line(query_line, "in", in_number, adapted_dict, scaffold, start, end, strand, indel_length, debug_start, debug_end))
                                 for species_line in species_lines:
                                     seq = tools.get_sequence_from_maf_line(species_line)
                                     if seq != -1 and tools.is_mostly_non_gaps(seq[target_gap[0]:target_gap[1]]):
-                                        batch_lines.append(tools.get_bed_line(species_line, "in", in_number, adapted_dict, scaffold, start, end, strand))
+                                        print(tools.get_bed_line(species_line, "in", in_number, adapted_dict, scaffold, start, end, strand, indel_length, debug_start, debug_end))
+                                        print(species_line)
+                                        batch_lines.append(tools.get_bed_line(species_line, "in", in_number, adapted_dict, scaffold, start, end, strand, indel_length, debug_start, debug_end))
                                         batch_current_line += 1
                                 in_number += 1
-
                         query_gaps = tools.get_gap_locations(query_seq)
-                        print(query_gaps)
-                        print(target_line)
-                        print(query_line)
+
                         for query_gap in query_gaps:
                             species_lines.append(target_line)
                             target_indel = query_seq[query_gap[0]:query_gap[1]]
                             if tools.is_mostly_non_gaps(target_indel):
+                                indel_length = query_gap[1] - query_gap[0]
                                 scaffold, start, end, strand = tools.calculate_genomic_position(target_line, query_gap[0], query_gap[1], False)
-                                batch_lines.append(tools.get_bed_line(query_line, "del", in_number, adapted_dict, scaffold, start, end, strand))
+                                batch_lines.append(tools.get_bed_line(query_line, "del", in_number, adapted_dict, scaffold, start, end, strand, indel_length, debug_start, debug_end))
                                 #needs to be different, as this is insert= affects genomic position of differently
                                 batch_current_line += 1
                                 for species_line in species_lines:
                                     seq = tools.get_sequence_from_maf_line(species_line)
                                     if seq != -1 and tools.is_mostly_non_gaps(seq[query_gap[0]:query_gap[1]]):
-                                        batch_lines.append(tools.get_bed_line(species_line, "in", in_number, adapted_dict, scaffold, start, end, strand))
+                                        batch_lines.append(tools.get_bed_line(species_line, "in", in_number, adapted_dict, scaffold, start, end, strand, indel_length, debug_start, debug_end))
                                         batch_current_line += 1
 
                                     elif seq != -1 and tools.is_mostly_gaps(seq[query_gap[0]:query_gap[1]]):
-                                        batch_lines.append(tools.get_bed_line(species_line, "del", in_number, adapted_dict, scaffold, start, end, strand))
+                                        batch_lines.append(tools.get_bed_line(species_line, "del", in_number, adapted_dict, scaffold, start, end, strand, indel_length, debug_start, debug_end))
                                         batch_current_line += 1
                                 in_number += 1
                     target_line = ""

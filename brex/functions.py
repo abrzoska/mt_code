@@ -5,25 +5,41 @@ NON_GAP_TOLERANCE = 0.8
 GAP_TOLERANCE = 0.8
 
 
-def calculate_genomic_position(target, s, e, is_reference_species):
+def calculate_genomic_position(target, start, end, is_reference_species):
+    #todo: indels need to be calculated precisily gaps cannot be counted
+    #todo: should both values be in the bed file? -> yes for debug purposes
     actual_gap_length = 1
-    if not is_reference_species:
-        actual_gap_length = calculate_genomic_distance(target, s, e)
-    scaffold = get_scaffold_from_maf_line(target)
-    start = int(get_start_from_maf_line(target)) + s
-    strand = get_strand_from_maf_line(target)
-    end = int(start) + actual_gap_length
-    return scaffold, start, end, strand
-
-
-def calculate_genomic_distance(target, indel_start, indel_end):
     target_sequence = get_sequence_from_maf_line(target)
+    actual_start = calculate_actual_start(target_sequence, start)
+    if not is_reference_species:
+        actual_gap_length = calculate_genomic_distance(target_sequence, start, end)
+    scaffold = get_scaffold_from_maf_line(target)
+    start = int(get_start_from_maf_line(target)) + start
+    actual_start = int(get_start_from_maf_line(target)) + actual_start
+    actual_end = int(actual_start) + actual_gap_length
+    strand = get_strand_from_maf_line(target)
+    end = int(start) + end
+    return scaffold, actual_start, actual_end, strand, start, end
+
+"""
+Calcualate the actual genomic start (subtracting gaps)
+"""
+def calculate_actual_start(target_sequence, start):
+    sequence_to_start = target_sequence[0:start]
+    gaps = sequence_to_start.count("-")
+    return start - gaps
+
+"""
+The actual genomic distance in the reference genome is dependent on the number of gaps 
+(not relevant when deletions in the mouse genomes/ inserts in spalax are detected)
+"""
+def calculate_genomic_distance(target_sequence, indel_start, indel_end):
     indel_sequence = target_sequence[indel_start:indel_end]
     number_of_bases = len(indel_sequence) - indel_sequence.count("-") + 1
     return number_of_bases
 
 
-def get_bed_line(line, indel, number, adapted_dict, scaffold, start, end, strand):
+def get_bed_line(line, indel, number, adapted_dict, scaffold, start, end, strand, indel_size, debug_start, debug_end):
     species = get_species_from_maf_line(line)
     adapted_label = ""
     is_adapted = False
@@ -36,7 +52,7 @@ def get_bed_line(line, indel, number, adapted_dict, scaffold, start, end, strand
     else:
         name = species + "." + indel + "." + str(number)
     color = get_color(indel, is_adapted)
-    return f'{scaffold}\t{start}\t{end}\t{name}\t0\t{strand}\t{start}\t{end}\t{color}\n'
+    return f'{scaffold}\t{start}\t{end}\t{name}\t0\t{strand}\t{debug_start}\t{debug_end}\t{color}\t{indel_size}\n'
 
 
 def get_scaffold_from_maf_line(line):
