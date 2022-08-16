@@ -17,9 +17,11 @@ def calculate_genomic_position(target, start, end, is_reference_species):
     start = int(get_start_from_maf_line(target)) + start
     actual_start = int(get_start_from_maf_line(target)) + actual_start
     actual_end = int(actual_start) + actual_gap_length
+    size = end - start
     strand = get_strand_from_maf_line(target)
-    end = int(start) + end
+    end = int(start) + size
     return scaffold, actual_start, actual_end, strand, start, end
+
 
 """
 Calcualate the actual genomic start (subtracting gaps)
@@ -29,6 +31,7 @@ def calculate_actual_start(target_sequence, start):
     gaps = sequence_to_start.count("-")
     return start - gaps
 
+
 """
 The actual genomic distance in the reference genome is dependent on the number of gaps 
 (not relevant when deletions in the mouse genomes/ inserts in spalax are detected)
@@ -37,6 +40,16 @@ def calculate_genomic_distance(target_sequence, indel_start, indel_end):
     indel_sequence = target_sequence[indel_start:indel_end]
     number_of_bases = len(indel_sequence) - indel_sequence.count("-") + 1
     return number_of_bases
+
+
+"""
+Calculates the insertion size, e.g., mouse has gap, but Spalax has an insertion, it only has to be one bp to be relevant:
+mouse:  -----
+spalax: --A--
+still an insertion of size 1
+"""
+def get_insertion_size(sequence):
+    return len(sequence) - sequence.count("-")
 
 
 def get_bed_line(line, indel, number, adapted_dict, scaffold, start, end, strand, indel_size, debug_start, debug_end):

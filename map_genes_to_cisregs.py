@@ -1,6 +1,5 @@
 import pandas as pd
 import pickle
-import list_util
 from file_parameters import *
 from variables import *
 from memory_profiler import profile
@@ -57,9 +56,11 @@ def get_count_of_cis_reg_per_gene(folder, gene_to_cis_reg):
     return result
 
 
-def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group):
+def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group, min_indel_size):
     adapted_species_dicts = {}
     associated_indels = indel_group.loc[(indel_group['Start'] > cis_reg_start) & (indel_group['End'] < cis_reg_end)]
+   # associated_indels = indel_group.loc[(indel_group['Start'] > cis_reg_start) & (indel_group['End'] < cis_reg_end)
+   #                                     & indel_group['blockCount'] >= min_indel_size]
 
     associated_indels_group = associated_indels.groupby(by="Batch")
     query_species_only_count_del = 0
@@ -83,26 +84,26 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group):
         ##InDel ist in Spalax und ...
         #TODO: maybe do this a bn
         else:
+            #Note: this means that if one species is in another group this is reported
             names_list = lines_with_this_end_number['Name'].tolist()
-            if any(query_species in s for s in names_list):
-                ## 2) InDel ist in Spalax UND einer Spezies aus der Outgroup (egal ob long lived/adaptiert) //REMOVED
-                type = names_list[0].split(".")[-2]
-                ## 3) InDel ist in Spalax UND einer Hypoxie adaptierten Spezies, egal ob Ingroup oder Outgroup
-                ## 4) InDel ist in Spalax UND einer langlebigen Spezies , egal ob Ingroup oder   Outgroup
-                for adapted_label in adapted_labels:
-                    if adapted_label in adapted_species_dicts.keys():
-                        has_indels = True
-                        if type == "del":
-                            adapted_species_dicts[f"{adapted_label}_del"] += 1
-                        else:
-                            adapted_species_dicts[f"{adapted_label}_in"] += 1
+            ## 2) InDel ist in Spalax UND einer Spezies aus der Outgroup (egal ob long lived/adaptiert) //REMOVED
+            type = names_list[0].split(".")[-2]
+            ## 3) InDel ist in Spalax UND einer Hypoxie adaptierten Spezies, egal ob Ingroup oder Outgroup
+            ## 4) InDel ist in Spalax UND einer langlebigen Spezies , egal ob Ingroup oder   Outgroup
+            for adapted_label in adapted_labels:
+                if any(adapted_label in s for s in names_list):
+                    has_indels = True
+                    if type == "del":
+                        adapted_species_dicts[f"{adapted_label}_del"] += 1
+                    else:
+                        adapted_species_dicts[f"{adapted_label}_in"] += 1
     if not has_indels:
         return ""
     return ",".join(list(map(lambda x: str(x), [cis_reg_id, query_species_only_count_del, query_species_only_count_in] + list(adapted_species_dicts.values())))) + "\n"
 
 @profile
-def run_analysis(result_folder, indel_file):
-    columns = ["Chromosome", "Start", "End", "Name", "Score", "Strand,", "ThickStart", "ThickEnd", "ItemRGB"]
+def run_analysis(result_folder, indel_file, min_indel_size):
+    columns = ["Chromosome", "Start", "End", "Name", "Score", "Strand,", "ThickStart", "ThickEnd", "ItemRGB", "blockCount"]
     cis_regs_groups = pd.read_csv(cis_reg_file, delimiter='\t', names=["chr", "start", "end", "element_id", "rgb"])
     cis_regs_groups = cis_regs_groups.groupby("chr")
     indels = pd.read_csv(indel_file, sep="\t", skiprows=0, header=None, names=columns)
@@ -114,7 +115,7 @@ def run_analysis(result_folder, indel_file):
     for key, indel_group in indels:
         if key in cis_regs_groups.groups.keys():
             cis_reg_group = cis_regs_groups.get_group(key)
-            stats = [get_and_analyze_indels(cis_reg[0], cis_reg[1], cis_reg[2], indel_group) for cis_reg in
+            stats = [get_and_analyze_indels(cis_reg[0], cis_reg[1], cis_reg[2], indel_group, min_indel_size) for cis_reg in
                      zip(cis_reg_group["start"], cis_reg_group["end"], cis_reg_group["element_id"])]
             stats = list(filter(lambda x: x != "", stats))
             all_stats += stats
@@ -127,13 +128,14 @@ def run_analysis(result_folder, indel_file):
     analysis_file.close()
 
 
-def run_parrallel_analysis(result_folder, indel_file):
+def run_parrallel_analysis(result_folder, indel_file, min_indel_size):
     #TODO: maybe i need to laod the cis_reg_groups multiple times cause of threading
-    Parallel(n_jobs=number_of_cores)(delayed(run_analysis)(result_folder, indel_file.replace("NUMBER", str(i))) for i in range(number_of_maf_parts))
+    Parallel(n_jobs=number_of_cores)(delayed(run_analysis)(result_folder, indel_file.replace("NUMBER", str(i))
+                                                           , min_indel_size) for i in range(number_of_maf_parts))
 
 
 @profile
-def main():
-    run_parrallel_analysis(cis_reg_indel_folder, indel_file)
+def main(min_indel_size):
+    run_parrallel_analysis(cis_reg_indel_folder, indel_file, min_indel_size)
     genes_to_cis_reg = determine_cis_regs_genes(gene_input_file)
     summarize_cis_regs(genes_to_cis_reg, cis_reg_indel_folder).to_csv(gene_result_csv)
