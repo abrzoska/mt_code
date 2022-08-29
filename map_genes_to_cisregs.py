@@ -58,10 +58,7 @@ def get_count_of_cis_reg_per_gene(folder, gene_to_cis_reg):
 
 def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group, min_indel_size):
     adapted_species_dicts = {}
-    associated_indels = indel_group.loc[(indel_group['Start'] > cis_reg_start) & (indel_group['End'] < cis_reg_end)]
-   # associated_indels = indel_group.loc[(indel_group['Start'] > cis_reg_start) & (indel_group['End'] < cis_reg_end)
-   #                                     & indel_group['blockCount'] >= min_indel_size]
-
+    associated_indels = indel_group.loc[(indel_group['Start'] > cis_reg_start) & (indel_group['End'] < cis_reg_end) & indel_group['blockCount'] >= min_indel_size]
     associated_indels_group = associated_indels.groupby(by="Batch")
     query_species_only_count_del = 0
     query_species_only_count_in = 0
@@ -86,7 +83,6 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group, 
         else:
             #Note: this means that if one species is in another group this is reported
             names_list = lines_with_this_end_number['Name'].tolist()
-            ## 2) InDel ist in Spalax UND einer Spezies aus der Outgroup (egal ob long lived/adaptiert) //REMOVED
             type = names_list[0].split(".")[-2]
             ## 3) InDel ist in Spalax UND einer Hypoxie adaptierten Spezies, egal ob Ingroup oder Outgroup
             ## 4) InDel ist in Spalax UND einer langlebigen Spezies , egal ob Ingroup oder   Outgroup
@@ -95,8 +91,10 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group, 
                     has_indels = True
                     if type == "del":
                         adapted_species_dicts[f"{adapted_label}_del"] += 1
+                        break
                     else:
                         adapted_species_dicts[f"{adapted_label}_in"] += 1
+                        break
     if not has_indels:
         return ""
     return ",".join(list(map(lambda x: str(x), [cis_reg_id, query_species_only_count_del, query_species_only_count_in] + list(adapted_species_dicts.values())))) + "\n"

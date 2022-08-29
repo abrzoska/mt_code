@@ -29,10 +29,11 @@ try:
 except:
     raise "Error: argument for indel size needs to be integer"
 
-reg_ex = rex.RegionExtractor(run_name, intermediary_folder, indel_length)
-reg_ex.loop_find_indels_for_query_from_maf(number_of_maf_parts, input_maf_part, target_species, query_species, in_group,
-                                           indel_file, adapted_dict, number_of_cores)
-print("finished step 1")
-#mapping_genes.map_genes_to_cis_regs()
-map_genes_to_cisregs.main(indel_length)
-print("finished step 4")
+#reg_ex = rex.RegionExtractor(run_name, intermediary_folder, indel_length)
+#reg_ex.loop_find_indels_for_query_from_maf(number_of_maf_parts, input_maf_part, target_species, query_species, indel_file, adapted_dict, number_of_cores)
+#print("finished step 1")
+
+map_genes_to_cisregs.run_parrallel_analysis(cis_reg_indel_folder, indel_file, 1)
+genes_to_cis_reg = map_genes_to_cisregs.determine_cis_regs_genes(gene_input_file)
+map_genes_to_cisregs.summarize_cis_regs(genes_to_cis_reg, cis_reg_indel_folder).to_csv(gene_result_csv)
+#print("finished step 4")

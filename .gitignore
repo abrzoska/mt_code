@@ -16,3 +16,9 @@ ENSMUSG00000031583_cis_regs.csv
 ENSMUSG00000031583_indels.bed
 
 ENSMUSG00000031583_promoter_region.maf
+
+*.bed
+
+*.csv
+
+*.maf

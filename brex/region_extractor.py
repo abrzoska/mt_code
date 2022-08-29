@@ -238,9 +238,9 @@ class RegionExtractor:
         mf.close()
         b_out.close()
 
-    def loop_find_indels_for_query_from_maf(self, maf_pieces, maf_part, target, query, in_group, bed_out, adapted_dict, number_cores):
-        Parallel(n_jobs=number_cores)([delayed(self.find_indels_for_query_from_maf)(maf_part.replace("NUMBER", str(i)),
-            target, query, in_group, bed_out.replace("NUMBER", str(i)), adapted_dict) for i in range(maf_pieces)])
+    def loop_find_indels_for_query_from_maf(self, maf_pieces, maf_part, target, query, bed_out, adapted_dict, number_cores):
+        Parallel(n_jobs=number_cores)([delayed(self.find_indels_from_maf)(maf_part.replace("NUMBER", str(i)),
+            target, query, bed_out.replace("NUMBER", str(i)), adapted_dict) for i in range(maf_pieces)])
 
     ##create bed line from detected INDEL for output incl in/out and adapted value
     def get_bed_line(self, target, line, indel, s, e, number, in_or_out_group, adapted_dict):
