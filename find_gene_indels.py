@@ -56,7 +56,7 @@ for i in range(number_of_maf_parts):
 
 np.savetxt(f'{gene}_indels.bed', indels_all, delimiter='\t', fmt='%s')
 
-if cut_maf != "no_maf":
+if cut_maf == "with_maf":
     bed_file = f"{gene}.bed"
     with open(bed_file, "w") as gene_bed:
         gene_bed.write(f"{gene_prom_chr}\t{gene_prom_start}\t{gene_prom_end}")

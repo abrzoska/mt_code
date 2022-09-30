@@ -7,8 +7,8 @@ from file_parameters import *
 
 def get_promoter(gene, strand, start, end, chr):
     if strand == 1:
-        return [gene, strand, start - 50000, start, chr]
-    return [gene, strand, end, end + 50000, chr]
+        return [gene, strand, start - 50000, start + 10000, chr]
+    return [gene, strand, end - 10000, end + 50000, chr]
 
 
 def get_cis_regs(gene, prom_start, prom_end, cis_regs):

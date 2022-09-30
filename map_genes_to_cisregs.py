@@ -4,6 +4,7 @@ from file_parameters import *
 from variables import *
 from memory_profiler import profile
 from joblib import Parallel, delayed
+import list_util
 
 
 def determine_cis_regs_genes(gene_file):
@@ -42,18 +43,13 @@ def summarize_cis_regs(genes_to_cis_reg, out_folder):
     return pd.DataFrame(result, columns=analysis_header)
 
 
-def get_count_of_cis_reg_per_gene(folder, gene_to_cis_reg):
-    result = []
-    for indel_group in indel_groups:
-        indel_analysis = pd.read_csv(f"{folder}/{indel_group}_analysis.csv")
-        for gene in gene_to_cis_reg.keys:
-            indels = gene_to_cis_reg[gene]
-            selected_rows = indel_analysis.loc[indel_analysis["cis_reg_id"] in indels]
-            row = [gene]
-            for key in ["query_species_only_count_del", "query_species_only_count_in", "indel_non_adapted_included_count"] + adapted_labels:
-                row.append(selected_rows[key].sum())
-            result.append(row)
-    return result
+def summarize_genes(filename, summary_file_name):
+    genes_of_interest = pd.read_csv(filename)
+    gene_summary_file = open(summary_file_name, "w+")
+    for key in ["query_species_only_count_del", "query_species_only_count_in"] + list_util.flatten_list([[f"{adapted_label}_del", f"{adapted_label}_in"] for adapted_label in adapted_labels]):
+        sum =  genes_of_interest[genes_of_interest[key]!=0].sum()[key]
+        gene_summary_file.write(f"# of genes with {key}: {sum}\n")
+    gene_summary_file.close()
 
 
 def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group, min_indel_size):
@@ -134,6 +130,6 @@ def run_parrallel_analysis(result_folder, indel_file, min_indel_size):
 
 @profile
 def main(min_indel_size):
-    run_parrallel_analysis(cis_reg_indel_folder, indel_file, min_indel_size)
+    #run_parrallel_analysis(cis_reg_indel_folder, indel_file, min_indel_size)
     genes_to_cis_reg = determine_cis_regs_genes(gene_input_file)
     summarize_cis_regs(genes_to_cis_reg, cis_reg_indel_folder).to_csv(gene_result_csv)
