@@ -1,13 +1,11 @@
 import re
 
-MIN_INDEL_SIZE = 1
+#setup paramets
 NON_GAP_TOLERANCE = 0.8
-GAP_TOLERANCE = 0.8
+GAP_TOLERANCE = 0.8 #old value: 0.02
 
 
 def calculate_genomic_position(target, start, end, is_reference_species):
-    #todo: indels need to be calculated precisily gaps cannot be counted
-    #todo: should both values be in the bed file? -> yes for debug purposes
     actual_gap_length = 1
     target_sequence = get_sequence_from_maf_line(target)
     actual_start = calculate_actual_start(target_sequence, start)
@@ -61,9 +59,9 @@ def get_bed_line(line, indel, number, adapted_dict, scaffold, start, end, strand
             is_adapted = True
             adapted_label = adapted_label + "." + k
     if is_adapted:
-        name = species + adapted_label + "." + indel + "." + str(number)
+        name = f"{species}.{adapted_label}.{indel}.{number}"
     else:
-        name = species + "." + indel + "." + str(number)
+        name = f"{species}.{indel}.{number}"
     color = get_color(indel, is_adapted)
     return f'{scaffold}\t{start}\t{end}\t{name}\t0\t{strand}\t{debug_start}\t{debug_end}\t{color}\t{indel_size}\n'
 
@@ -128,7 +126,7 @@ def get_gap_locations(seq):
     gap_locations = []
     matches = list(re.finditer('-+', seq))
     for i, gap in enumerate(matches, 1):
-        if abs(gap.start() - gap.end()) >= MIN_INDEL_SIZE:
+        if abs(gap.start() - gap.end()) >= 1:
             gap_locations.append([gap.start(), gap.end()])
     return gap_locations
 

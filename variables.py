@@ -1,7 +1,7 @@
 import list_util
 ##SPECIES DIE ANALYSIERT WERDEN SOLL
 query_species="nanGal1"
-##NAHE VERWANDTE DER SPEZIES
+##NAHE VERWANDTE DER SPEZIES (currently unused)
 in_group= ["jacJac1","micOch1","criGri1","mesAur1","perManBai1","HLmusCar1","HLmusPah1","rn6","HLmerUng1","mm10"]
 ##LISTE ADAPTIERTER SPEZIES (INDELS DIE DIESEN TEILEN WERDEN HERVORGEHOBEN)
 ##hx
@@ -16,12 +16,14 @@ adapted_dict = {
 }
 adapted_labels = list(adapted_dict.keys())
 
-
 #Mapping specific:
 upstream_region = 50000
 analysis_header = ["cis_reg_id", "query_species_only_count_del", "query_species_only_count_in"] + list_util.flatten_list([[f"{x}_del", f"{x}_in"] for x in adapted_labels])
 indel_groups =['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10', 'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19', 'chrX', 'chrY']
 
+#Pipeline
+MAX_BLOCKS = 144000 # if this is changed, number of blocks must be changed accordingly (file_parameters.py)
+needs_preprocessing = False #some calculation needs only to be done once not for every min indel size
 
 #Computational:
-number_of_cores = 18 #120
+number_of_cores = 12

@@ -123,7 +123,6 @@ def run_analysis(result_folder, indel_file, min_indel_size):
 
 
 def run_parrallel_analysis(result_folder, indel_file, min_indel_size):
-    #TODO: maybe i need to laod the cis_reg_groups multiple times cause of threading
     Parallel(n_jobs=number_of_cores)(delayed(run_analysis)(result_folder, indel_file.replace("NUMBER", str(i))
                                                            , min_indel_size) for i in range(number_of_maf_parts))
 
