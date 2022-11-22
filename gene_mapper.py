@@ -4,7 +4,7 @@ from memory_profiler import profile
 
 from file_parameters import *
 
-
+#Todo: change promoter region to paramater
 def get_promoter(gene, strand, start, end, chr):
     if strand == 1:
         return [gene, strand, start - 50000, start + 10000, chr]

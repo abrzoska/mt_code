@@ -1,4 +1,4 @@
-# MT_CODE  V2
+# MT CODE  V2
 
 ## Python dependencies:
 Use python3 and install the dependencies preferably in a virtual environment.\

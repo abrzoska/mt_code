@@ -2,7 +2,9 @@ from memory_profiler import profile
 from joblib import Parallel, delayed
 import functions as tools
 
-
+"""
+analyses the MAF file and finds InDels. One loop finds t
+"""
 @profile
 def find_indels_from_maf(maf, target, query, bed_out, adapted_dict):
     b_out = open(bed_out, "w")

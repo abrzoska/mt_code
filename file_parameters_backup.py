@@ -2,8 +2,6 @@ import os
 
 run_name = "indels2"
 
-#TODO: make run directories
-
 def create_dic_if_non_existent(path):
     exists = os.path.exists(path)
     if not exists:
@@ -54,7 +52,9 @@ wrn_cis_reg_motifs = "/mnt/moreAddspace/mt_code_data/test_data/wrn_result.tsv"
 #input_maf_part = "/mnt/moreAddspace/mt_code_data/test_data/wrn_maf_split/maf_part_NUMBER.maf"
 
 
-#meta #TODO: computationally determine this and include the cutter script in the pipeline
-number_of_maf_parts = 790
-#number_of_maf_parts = 4
-#number_of_maf_parts = 27
+# determine number of maf parts
+number_of_maf_parts = 0
+for path in os.listdir(maf_split):
+    # check if current path is a file
+    if os.path.isfile(os.path.join(maf_split, path)):
+        number_of_maf_parts += 1

@@ -1,13 +1,13 @@
 import pandas as pd
 import pickle
-from file_parameters import *
+import os
 from variables import *
 from memory_profiler import profile
 from joblib import Parallel, delayed
 import list_util
 
 
-def determine_cis_regs_genes(gene_file):
+def determine_cis_regs_genes(gene_file, gene_to_cis_reg_dic):
     with open(gene_to_cis_reg_dic, 'rb') as f:
         gene_to_cis_reg = pickle.load(f)
     df = pd.read_excel(gene_file, index_col=None)
@@ -16,7 +16,7 @@ def determine_cis_regs_genes(gene_file):
 
 #Todo parrallel?
 @profile
-def summarize_cis_regs(genes_to_cis_reg, out_folder):
+def summarize_cis_regs(genes_to_cis_reg, out_folder, merged_df_pickle, cis_reg_pickle, result_pickle):
     first = True
     files = os.listdir(out_folder)
     result = []
@@ -47,14 +47,14 @@ def summarize_genes(filename, summary_file_name):
     genes_of_interest = pd.read_csv(filename)
     gene_summary_file = open(summary_file_name, "w+")
     for key in ["query_species_only_count_del", "query_species_only_count_in"] + list_util.flatten_list([[f"{adapted_label}_del", f"{adapted_label}_in"] for adapted_label in adapted_labels]):
-        sum =  genes_of_interest[genes_of_interest[key]!=0].sum()[key]
+        sum = genes_of_interest[genes_of_interest[key]!=0].count()[key]
         gene_summary_file.write(f"# of genes with {key}: {sum}\n")
     gene_summary_file.close()
 
 
 def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group, min_indel_size):
     adapted_species_dicts = {}
-    associated_indels = indel_group.loc[(indel_group['Start'] > cis_reg_start) & (indel_group['End'] < cis_reg_end) & indel_group['blockCount'] >= min_indel_size]
+    associated_indels = indel_group.loc[(indel_group['Start'] > cis_reg_start) & (indel_group['End'] < cis_reg_end) & (indel_group['blockCount'] >= min_indel_size)]
     associated_indels_group = associated_indels.groupby(by="Batch")
     query_species_only_count_del = 0
     query_species_only_count_in = 0
@@ -69,8 +69,8 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group, 
             only_query_species_with_this_end_number = lines_with_this_end_number.iloc[0]
             if query_species in only_query_species_with_this_end_number.Name:
                 has_indels = True
-                type = only_query_species_with_this_end_number.Name.split(".")[-2]
-                if type == "del":
+                indel_type = only_query_species_with_this_end_number.Name.split(".")[-2]
+                if indel_type == "del":
                     query_species_only_count_del += 1
                 else:
                     query_species_only_count_in += 1
@@ -79,13 +79,13 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group, 
         else:
             #Note: this means that if one species is in another group this is reported
             names_list = lines_with_this_end_number['Name'].tolist()
-            type = names_list[0].split(".")[-2]
+            indel_type = names_list[0].split(".")[-2]
             ## 3) InDel ist in Spalax UND einer Hypoxie adaptierten Spezies, egal ob Ingroup oder Outgroup
             ## 4) InDel ist in Spalax UND einer langlebigen Spezies , egal ob Ingroup oder   Outgroup
             for adapted_label in adapted_labels:
                 if any(adapted_label in s for s in names_list):
                     has_indels = True
-                    if type == "del":
+                    if indel_type == "del":
                         adapted_species_dicts[f"{adapted_label}_del"] += 1
                         break
                     else:
@@ -96,7 +96,7 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group, 
     return ",".join(list(map(lambda x: str(x), [cis_reg_id, query_species_only_count_del, query_species_only_count_in] + list(adapted_species_dicts.values())))) + "\n"
 
 @profile
-def run_analysis(result_folder, indel_file, min_indel_size):
+def run_analysis(result_folder, indel_file, min_indel_size, cis_reg_file):
     columns = ["Chromosome", "Start", "End", "Name", "Score", "Strand,", "ThickStart", "ThickEnd", "ItemRGB", "blockCount"]
     cis_regs_groups = pd.read_csv(cis_reg_file, delimiter='\t', names=["chr", "start", "end", "element_id", "rgb"])
     cis_regs_groups = cis_regs_groups.groupby("chr")
@@ -122,13 +122,7 @@ def run_analysis(result_folder, indel_file, min_indel_size):
     analysis_file.close()
 
 
-def run_parrallel_analysis(result_folder, indel_file, min_indel_size):
+def run_parrallel_analysis(result_folder, indel_file, min_indel_size, number_of_maf_parts, cis_reg_file):
     Parallel(n_jobs=number_of_cores)(delayed(run_analysis)(result_folder, indel_file.replace("NUMBER", str(i))
-                                                           , min_indel_size) for i in range(number_of_maf_parts))
+                                                           , min_indel_size, cis_reg_file) for i in range(number_of_maf_parts))
 
-
-@profile
-def main(min_indel_size):
-    #run_parrallel_analysis(cis_reg_indel_folder, indel_file, min_indel_size)
-    genes_to_cis_reg = determine_cis_regs_genes(gene_input_file)
-    summarize_cis_regs(genes_to_cis_reg, cis_reg_indel_folder).to_csv(gene_result_csv)
