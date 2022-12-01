@@ -8,4 +8,6 @@ echo module load lang/SciPy-bundle >> ~/mt_code/bin/activate
 # in the end we need to protect the activate script from accidental modification:
 chmod -w ~/mt_code/bin/activate
 
+source ~/mt_code/bin/activate
+
 pip install -r requirements.txt

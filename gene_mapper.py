@@ -3,12 +3,13 @@ import pickle
 from memory_profiler import profile
 
 from file_parameters import *
+from variables import *
 
 #Todo: change promoter region to paramater
 def get_promoter(gene, strand, start, end, chr):
     if strand == 1:
-        return [gene, strand, start - 50000, start + 10000, chr]
-    return [gene, strand, end - 10000, end + 50000, chr]
+        return [gene, strand, start - PROMOTER_LENGTH_UPSTREAM, start + PROMOTER_LENGTH_DOWNSTREAM, chr]
+    return [gene, strand, end - PROMOTER_LENGTH_DOWNSTREAM, end + PROMOTER_LENGTH_UPSTREAM, chr]
 
 
 def get_cis_regs(gene, prom_start, prom_end, cis_regs):

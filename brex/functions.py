@@ -57,7 +57,10 @@ def get_bed_line(line, indel, number, adapted_dict, scaffold, start, end, strand
     for k in adapted_dict.keys():
         if species in adapted_dict[k]:
             is_adapted = True
-            adapted_label = adapted_label + "." + k
+            if adapted_label == "":
+                adapted_label = k
+            else:
+                adapted_label += f".{k}"
     if is_adapted:
         name = f"{species}.{adapted_label}.{indel}.{number}"
     else:

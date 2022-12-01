@@ -87,10 +87,8 @@ def get_and_analyze_indels(cis_reg_start, cis_reg_end, cis_reg_id, indel_group, 
                     has_indels = True
                     if indel_type == "del":
                         adapted_species_dicts[f"{adapted_label}_del"] += 1
-                        break
                     else:
                         adapted_species_dicts[f"{adapted_label}_in"] += 1
-                        break
     if not has_indels:
         return ""
     return ",".join(list(map(lambda x: str(x), [cis_reg_id, query_species_only_count_del, query_species_only_count_in] + list(adapted_species_dicts.values())))) + "\n"

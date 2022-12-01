@@ -1,4 +1,7 @@
 import list_util
+
+### base species
+target_species = "mm10"
 ##SPECIES DIE ANALYSIERT WERDEN SOLL
 query_species="nanGal1"
 ##NAHE VERWANDTE DER SPEZIES (currently unused)
@@ -24,6 +27,8 @@ indel_groups =['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', '
 #Pipeline
 MAX_BLOCKS = 144000 # if this is changed, number of blocks must be changed accordingly (file_parameters.py)
 needs_preprocessing = False #some calculation needs only to be done once not for every min indel size
+PROMOTER_LENGTH_UPSTREAM = 50000
+PROMOTER_LENGTH_DOWNSTREAM = 10000
 
 #Computational:
-number_of_cores = 12
+number_of_cores = 18
