@@ -33,7 +33,7 @@ def get_relevant_indels_for_cis_reg(cis_reg_start, cis_reg_end, cis_reg_id, inde
             only_query_species_with_this_end_number = lines_with_this_end_number.iloc[0]
             if query_species in only_query_species_with_this_end_number.Name:
                 has_indels = True
-                indel_lines.append(list(only_query_species_with_this_end_number) + [cis_reg_id, gene_id, "Spalax Specific"])
+                indel_lines.append([str(elem) for elem in list(only_query_species_with_this_end_number)] + [cis_reg_id, gene_id, "Spalax Specific"])
         ##InDel ist in Spalax und ...
         #TODO: maybe do this a bn
         else:
@@ -45,7 +45,7 @@ def get_relevant_indels_for_cis_reg(cis_reg_start, cis_reg_end, cis_reg_id, inde
             for adapted_label in adapted_labels:
                 if any(adapted_label in s for s in names_list):
                     has_indels = True
-                    indel_lines.append(list(spalax_line) + [cis_reg_id, gene_id, f"Adapted group: {adapted_label}"])
+                    indel_lines.append([str(elem) for elem in list(spalax_line)] + [cis_reg_id, gene_id, f"Adapted group: {adapted_label}"])
     if not has_indels:
         return []
     with open(f"{cis_reg_id}_called_indels_only.bed", "w") as f:

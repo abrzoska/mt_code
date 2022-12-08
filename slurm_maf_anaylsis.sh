@@ -12,4 +12,4 @@ module load lang/SciPy-bundle
 
 source ~/venv/bin/activate
 
-python /home/timlin/projects/mt_code/run_streamlined_genome_analysis.py 3
+python /home/timlin/projects/mt_code/run_streamlined_genome_analysis.py $1

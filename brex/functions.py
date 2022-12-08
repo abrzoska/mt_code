@@ -153,3 +153,8 @@ def is_mostly_gaps(sequence):
     if perc < GAP_TOLERANCE:
         return False
     return True
+
+
+def get_maf_score(line):
+    return line.split("=")[1].rstrip()
+#a score=59955.000000

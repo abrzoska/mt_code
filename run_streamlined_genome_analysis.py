@@ -26,7 +26,7 @@ run_name = f"indels{indel_length}"
 run_variables = RunVariables(run_name)
 
 if needs_preprocessing:
-    cut_maf.main()
+    #cut_maf.main()
     region_extractor.loop_find_indels_for_query_from_maf(number_of_maf_parts, input_maf_part, target_species,
                                                          query_species, indel_file, adapted_dict, number_of_cores)
     gene_mapper.map_genes_to_cis_regs()

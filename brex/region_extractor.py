@@ -1,6 +1,7 @@
 from memory_profiler import profile
 from joblib import Parallel, delayed
 import functions as tools
+import new_functions as tools2
 
 """
 analyses the MAF file and finds InDels. One loop finds t
@@ -30,34 +31,37 @@ def find_indels_from_maf(maf, target, query, bed_out, adapted_dict):
                 query_seq = tools.get_sequence_from_maf_line(query_line)
                 target_seq = tools.get_sequence_from_maf_line(target_line)
 
-                if target_seq != -1 and query_seq != -1:
+                if query_seq != -1:
                     target_gaps = tools.get_gap_locations(target_seq)
                     for target_gap in target_gaps:
                         query_indel = query_seq[target_gap[0]:target_gap[1]]
-                        if tools.get_insertion_size(query_indel) > 0:
-                            indel_length = target_gap[1] - target_gap[0]
+                        insertion_size = tools.get_insertion_size(query_indel)
+                        if insertion_size > 0:
                             scaffold, start, end, strand, debug_start, debug_end = tools.calculate_genomic_position(
                                 target_line, target_gap[0], target_gap[1], True)
                             batch_lines.append(
                                 tools.get_bed_line(query_line, "in", in_number, adapted_dict, scaffold, start, end,
-                                                   strand, indel_length, debug_start, debug_end))
+                                                   strand, insertion_size, debug_start, debug_end))
                             batch_current_line += 1
                             for species_line in species_lines:
                                 seq = tools.get_sequence_from_maf_line(species_line)
                                 if seq != -1 and tools.is_mostly_non_gaps(seq[target_gap[0]:target_gap[1]]):
                                     batch_lines.append(
                                         tools.get_bed_line(species_line, "in", in_number, adapted_dict, scaffold, start,
-                                                           end, strand, indel_length, debug_start, debug_end))
+                                                           end, strand, insertion_size, debug_start, debug_end))
                                     batch_current_line += 1
                             in_number += 1
                     query_gaps = tools.get_gap_locations(query_seq)
 
                     for query_gap in query_gaps:
                         target_indel = target_seq[query_gap[0]:query_gap[1]]
+                        #Todo change indel size to actual indel size
                         if tools.is_mostly_non_gaps(target_indel):
-                            indel_length = query_gap[1] - query_gap[0]
+                            length_with_gaps =
+                            indel_length = tools.get_insertion_size(target_indel)
                             scaffold, start, end, strand, debug_start, debug_end = tools.calculate_genomic_position(
                                 target_line, query_gap[0], query_gap[1], False)
+
                             batch_lines.append(
                                 tools.get_bed_line(query_line, "del", in_number, adapted_dict, scaffold, start, end,
                                                    strand, indel_length, debug_start, debug_end))
@@ -69,6 +73,9 @@ def find_indels_from_maf(maf, target, query, bed_out, adapted_dict):
                                         tools.get_bed_line(species_line, "del", in_number, adapted_dict, scaffold,
                                                            start, end, strand, indel_length, debug_start, debug_end))
                                     batch_current_line += 1
+                            batch_lines.append(tools2.make_json_entry(
+                                scaffold, start, end,
+                            ))
                             in_number += 1
                 target_line = ""
                 query_line = ""
